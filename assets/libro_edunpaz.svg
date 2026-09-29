@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bookBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8fd2f5"/>
+      <stop offset="100%" stop-color="#76bce2"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="900" fill="url(#bookBg)"/>
+
+  <!-- Top bar accent -->
+  <rect x="50" y="10" width="280" height="14" fill="#111827"/>
+
+  <!-- Title -->
+  <text x="50" y="125" font-family="'Newsreader', Georgia, 'IBM Plex Sans', sans-serif" font-weight="900" font-size="54" fill="#0f1f38" letter-spacing="-0.5">Introducción a</text>
+  <text x="50" y="200" font-family="'Newsreader', Georgia, 'IBM Plex Sans', sans-serif" font-weight="900" font-size="56" fill="#0f1f38" letter-spacing="-0.5">la Informática</text>
+
+  <!-- Subtitle -->
+  <text x="50" y="260" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="27" fill="#ffffff" letter-spacing="-0.2">Para el Profesorado Universitario</text>
+  <text x="50" y="298" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="27" fill="#ffffff" letter-spacing="-0.2">en Educación Física</text>
+
+  <!-- Authors Card (White Box) -->
+  <rect x="50" y="390" width="300" height="310" fill="#ffffff" filter="url(#shadow)" rx="2"/>
+  <text x="68" y="435" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="22" fill="#1e293b">Leandro Guerschberg,</text>
+  <text x="68" y="475" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="22" fill="#1e293b">José Luis Colaciuri,</text>
+  <text x="68" y="515" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="22" fill="#1e293b">Yael Estefanía</text>
+  <text x="68" y="555" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="22" fill="#1e293b">Gutiérrez</text>
+  <text x="68" y="595" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="22" fill="#1e293b">y Karina Guerschberg</text>
+
+  <!-- Vertical Banner: Colección Morral de Apuntes -->
+  <rect x="546" y="390" width="54" height="490" fill="#111827"/>
+  <g transform="translate(580, 860) rotate(-90)">
+    <text x="0" y="0" font-family="'IBM Plex Mono', monospace" font-size="19" font-weight="700" fill="#ffffff" letter-spacing="4">COLECCIÓN MORRAL DE APUNTES</text>
+  </g>
+  <rect x="515" y="390" width="31" height="310" fill="#ffffff"/>
+
+  <!-- Footer Logo EDUNPAZ -->
+  <g transform="translate(80, 800)">
+    <!-- Pen Icon -->
+    <path d="M10,25 C10,12 22,0 35,0 C48,0 60,12 60,25 C60,38 48,50 35,50" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+    <path d="M15,40 Q25,20 38,15 L50,42 L42,48 L35,32 Z" fill="#ffffff"/>
+    <text x="70" y="32" font-family="'IBM Plex Sans', sans-serif" font-weight="900" font-size="34" fill="#ffffff" letter-spacing="0.5">EDUNPAZ</text>
+    <text x="72" y="49" font-family="'IBM Plex Sans', sans-serif" font-weight="500" font-size="14" fill="#ffffff" letter-spacing="0.2">Editorial Universitaria</text>
+  </g>
+</svg>

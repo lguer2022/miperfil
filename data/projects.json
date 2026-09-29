@@ -1,0 +1,457 @@
+[
+  {
+    "id": "proj-unpaz-survey",
+    "title": "Representaciones sociales sobre la IA Generativa en el ámbito de la educación superior",
+    "category": "investigacion",
+    "categoryLabel": "Investigación / Tesis Doctoral",
+    "url": "https://unpaz-survey.vercel.app",
+    "desc": "Este estudio es parte de una tesis doctoral.\n\nPropósito del Estudio:\nEste estudio tiene como objetivo explorar las representaciones sociales que estudiantes, docentes y autoridades tienen sobre la IA generativa en el ámbito de la educación superior. El propósito es conocer cómo y para qué se usa y cuáles juicios o prejuicios surgen en torno a esta tecnología emergente.",
+    "tags": [
+      "Tesis Doctoral",
+      "IA Generativa",
+      "UNPAZ",
+      "Encuesta",
+      "Educación Superior"
+    ],
+    "badge": "Tesis Doctoral en curso",
+    "status": "Convocatoria abierta",
+    "visible": true
+  },
+  {
+    "id": "proj-pppjuego",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Piedra Papel o tijera",
+    "slug": "pppjuego",
+    "url": "https://pppjuego.netlify.app",
+    "desc": "Este juego tradicional de piedra, papel o tijea jugamos contra la maquina. Un modulo de media pipe reconoce tu mano y el otro sortea la eleccion de la compu, Fijate quien gana. Si es muy facil tambien hay una version de Piedra, Papel, Tijera, Lagato, Spock",
+    "tags": [
+      "Gamificación",
+      "Pedagogía",
+      "JavaScript",
+      "Educación"
+    ],
+    "badge": "Web App",
+    "icon": "gamepad"
+  },
+  {
+    "id": "proj-qrcreatorlg",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "QR Creator LG",
+    "slug": "qrcreatorlg",
+    "url": "https://qrcreatorlg.netlify.app",
+    "desc": "Generador de códigos QR vectoriales de alta precisión con opciones de personalización cromática, embebido de logotipos institucionales y exportación en múltiples resoluciones.",
+    "tags": [
+      "Utilidad",
+      "Vectorial",
+      "QR",
+      "Herramienta"
+    ],
+    "badge": "Herramienta",
+    "icon": "qr"
+  },
+  {
+    "id": "proj-nexusformat",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Nexus Format",
+    "slug": "nexusformat",
+    "url": "https://nexusformat.netlify.app",
+    "desc": "Asistente web para la normalización, tipografía y maquetación de manuscritos académicos bajo normas editoriales científicas del Journal Nexus Inerdisciplinaris",
+    "tags": [
+      "Editorial",
+      "Académico",
+      "Formateo",
+      "Markdown"
+    ],
+    "badge": "Académico",
+    "icon": "file-text"
+  },
+  {
+    "id": "proj-fitfreelg",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "FitFree LG",
+    "slug": "fitfreelg",
+    "url": "https://fitfreelg.netlify.app",
+    "desc": "Aplicación de seguimiento y planificación del entrenamiento físico fundamentada en software libre y privacidad, sin rastreadores comerciales ni telemetría.",
+    "tags": [
+      "Salud",
+      "Educación Física",
+      "Software Libre",
+      "PWA"
+    ],
+    "badge": "Salud / Deporte",
+    "icon": "activity",
+    "visible": false
+  },
+  {
+    "id": "proj-nodocalc",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "NodoCalc - Calculo de Salarios Nodocentes",
+    "slug": "nodocalc",
+    "url": "https://nodocalc.netlify.app",
+    "desc": "Calculadora de salarios y herramienta analítica orientada al personal Nodocente universitario para la estimación de suplementos, escalafones y liquidaciones de sueldos estimadas. Seguimos en lucha por la plena aplicacion de la Ley de Financiamiento Universitarios, Paritarias Libres y Salarios Adecuados.",
+    "tags": [
+      "Gestión Universitaria",
+      "Nodocente",
+      "Calculadora"
+    ],
+    "badge": "Gestión",
+    "icon": "calculator"
+  },
+  {
+    "id": "proj-encuestadtec",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Encuesta DTEC",
+    "slug": "encuestadtec",
+    "url": "https://encuestadtec.netlify.app",
+    "desc": "Sistema de relevamiento diagnóstico sobre apropiación de tecnologías educativas, competencias digitales docentes y uso de TIC en la comunidad académica.",
+    "tags": [
+      "Investigación",
+      "Encuestas",
+      "Diagnóstico",
+      "UNPAZ"
+    ],
+    "badge": "Investigación",
+    "icon": "bar-chart",
+    "visible": false
+  },
+  {
+    "id": "proj-votosrec",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Votos Rec",
+    "slug": "votosrec",
+    "url": "https://votosrec.netlify.app",
+    "desc": "Plataforma de fiscalización y escrutinio rápido de votaciones en claustros universitarios, garantizando transparencia y trazabilidad en los comicios.",
+    "tags": [
+      "Democracia",
+      "Cogobierno",
+      "Auditoría",
+      "Votación"
+    ],
+    "badge": "Cogobierno",
+    "icon": "check-square",
+    "visible": false
+  },
+  {
+    "id": "proj-documarkpro",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "DocuMark Pro",
+    "slug": "documarkpro",
+    "url": "https://documarkpro.netlify.app",
+    "desc": "Entorno de conversion de PDF o DOC a MD. Por que quiero exportar a Markdown ? porque es mas liviano para pasarle documentos para analizar a las plataformas de IA.",
+    "tags": [
+      "Documentación",
+      "Markdown",
+      "Productividad"
+    ],
+    "badge": "Productividad",
+    "icon": "code"
+  },
+  {
+    "id": "proj-dicomconv",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Dicom Conv",
+    "slug": "dicomconv",
+    "url": "https://dicomconv.netlify.app",
+    "desc": "Visor y conversor web de estudios diagnósticos en formato médico DICOM, diseñado como recurso didáctico para carreras de bioimágenes y medicina nuclear. EN DESARROLLO. En el futuro pasara el formato privativo DICOM a jpg o PNG.",
+    "tags": [
+      "Bioimágenes",
+      "DICOM",
+      "Salud",
+      "Medicina"
+    ],
+    "badge": "Bioimágenes",
+    "icon": "image"
+  },
+  {
+    "id": "proj-radioisf",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Radio ISF",
+    "slug": "radioisf",
+    "url": "https://radioisf.netlify.app",
+    "desc": "Jeopardy Académico para la carrera de Radiologia del ISF",
+    "tags": [
+      "juegos",
+      "academica",
+      "ISF"
+    ],
+    "badge": "Medios",
+    "icon": "radio"
+  },
+  {
+    "id": "proj-venerable-swan",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Portal de Cátedra Digital",
+    "slug": "venerable-swan-c4e926",
+    "url": "https://venerable-swan-c4e926.netlify.app",
+    "desc": "Entorno didáctico modular de apoyo docente con recursos de aprendizaje autodirigido, guías de trabajos prácticos y enlaces a bibliografía de cátedra.",
+    "tags": [
+      "Cátedra",
+      "Docencia",
+      "Campus"
+    ],
+    "badge": "Docencia",
+    "icon": "compass",
+    "visible": false
+  },
+  {
+    "id": "proj-iqbio10",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Jeopardy IQ BIO 10 años",
+    "slug": "iqbio10",
+    "url": "https://iqbio10.netlify.app",
+    "desc": "Jeopardy académico para IQ y Bio en el marco de los 10 años.",
+    "tags": [
+      "Inteligencia Artificial",
+      "Bioimágenes",
+      "Investigación"
+    ],
+    "badge": "IA / Salud",
+    "icon": "cpu"
+  },
+  {
+    "id": "proj-iqbio",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "IQBio Core",
+    "slug": "iqbio",
+    "url": "https://iqbio.netlify.app",
+    "desc": "Plataforma preliminar de procesamiento algorítmico y visualización de matrices de bioimágenes para entrenamiento de redes neuronales.",
+    "tags": [
+      "Algoritmos",
+      "Bioinformática",
+      "Prototipo"
+    ],
+    "badge": "Bioinformática",
+    "icon": "database",
+    "visible": false
+  },
+  {
+    "id": "proj-puefunpaz",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Centro de Juegos PUEF UNPAZ",
+    "slug": "puefunpaz",
+    "url": "https://puefunpaz.netlify.app",
+    "desc": "Espacio de Juegos para el PUEF",
+    "tags": [
+      "UNPAZ",
+      "Educación Física",
+      "Formación Docente"
+    ],
+    "badge": "UNPAZ",
+    "icon": "award",
+    "visible": true
+  },
+  {
+    "id": "proj-kariguers",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Kari Guers Web",
+    "slug": "kariguers",
+    "url": "https://kariguers.netlify.app",
+    "desc": "Borrador del sitio profesional de la Mg. Karina Guerschberg. Todo en Bootstrap",
+    "tags": [
+      "web profesional"
+    ],
+    "badge": "Pedagogía",
+    "icon": "smile",
+    "visible": true
+  },
+  {
+    "id": "proj-comunitario",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Portal Comunitario - turnero",
+    "slug": "comunitario",
+    "url": "https://comunitario.netlify.app",
+    "desc": "Un borrador de turnero para consultorios comunitarios",
+    "tags": [
+      "Comunidad",
+      "Territorio",
+      "Red Social"
+    ],
+    "badge": "Comunidad",
+    "icon": "users"
+  },
+  {
+    "id": "proj-superhardpc",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "SuperHard PC",
+    "slug": "superhardpc",
+    "url": "https://superhardpc.netlify.app",
+    "desc": "Simulador didáctico de arquitectura de computadoras, compatibilidad de componentes de hardware y optimización de estaciones de trabajo informáticas.",
+    "tags": [
+      "Hardware",
+      "Arquitectura",
+      "Enseñanza"
+    ],
+    "badge": "Hardware",
+    "icon": "hard-drive"
+  },
+  {
+    "id": "proj-tienda1leandro",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Tienda Digital Leandro",
+    "slug": "tienda1leandro",
+    "url": "https://tienda1leandro.netlify.app",
+    "desc": "Prototipo interactivo de catálogo comercial responsivo y carrito de compras desarrollado para la demostración de tecnologías frontend y arquitectura JAMstack.",
+    "tags": [
+      "Comercio Electrónico",
+      "Frontend",
+      "JavaScript"
+    ],
+    "badge": "E-Commerce",
+    "icon": "shopping-cart"
+  },
+  {
+    "id": "proj-blogleandro2",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Bitácora Digital v2",
+    "slug": "blogleandro2",
+    "url": "https://blogleandro2.netlify.app",
+    "desc": "Segunda versión del espacio de divulgación tecnológica sobre software libre, soberanía de datos y críticas a la concentración monopólica digital.",
+    "tags": [
+      "Divulgación",
+      "Soberanía Digital",
+      "Artículos"
+    ],
+    "badge": "Blog",
+    "icon": "book-open",
+    "visible": false
+  },
+  {
+    "id": "proj-blogleandro",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Blog Académico Leandro",
+    "slug": "blogleandro",
+    "url": "https://blogleandro.netlify.app",
+    "desc": "Espacio original de ensayos pedagógicos, apuntes sobre reformas universitarias y debates ético-técnicos sobre la inteligencia artificial.",
+    "tags": [
+      "Ensayos",
+      "Pedagogía",
+      "Pensamiento"
+    ],
+    "badge": "Blog",
+    "icon": "edit-3",
+    "visible": false
+  },
+  {
+    "id": "proj-jornadainstalacion",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "Jornada de Instalación FLISoL",
+    "slug": "jornadainstalacion",
+    "url": "https://jornadainstalacion.netlify.app",
+    "desc": "Sitio de difusión e instructivos paso a paso para eventos universitarios de migración a distribuciones GNU/Linux y capacitación comunitaria.",
+    "tags": [
+      "GNU/Linux",
+      "FLISoL",
+      "Software Libre",
+      "UNPAZ"
+    ],
+    "badge": "Software Libre",
+    "icon": "terminal",
+    "visible": false
+  },
+  {
+    "id": "proj-quizphera",
+    "category": "programacion",
+    "categoryLabel": "Programación",
+    "title": "QuizPhera",
+    "slug": "quizphera",
+    "url": "https://quizphera.netlify.app",
+    "desc": "Plataforma de microevaluación formativa gamificada mediante cuestionarios cronometrados y retroalimentación inmediata para estudiantes universitarios.",
+    "tags": [
+      "Microaprendizaje",
+      "Gamificación",
+      "Evaluación"
+    ],
+    "badge": "Gamificación",
+    "icon": "help-circle"
+  },
+  {
+    "id": "proj-inv-1",
+    "category": "investigacion",
+    "categoryLabel": "Investigación",
+    "title": "Soberanía Digital y Vigilancia Algorítmica en la UNPAZ",
+    "slug": "investigacion-soberania-unpaz",
+    "url": "https://orcid.org/0009-0005-9286-6358",
+    "desc": "Proyecto de investigación formal enfocado en relevar la dependencia tecnodigital de los claustros docentes y proponer marcos soberanos con software libre.",
+    "tags": [
+      "Investigación",
+      "UNPAZ",
+      "Soberanía",
+      "IA"
+    ],
+    "badge": "Acreditado",
+    "icon": "search"
+  },
+  {
+    "id": "proj-inv-2",
+    "category": "investigacion",
+    "categoryLabel": "Investigación",
+    "title": "El Cogobierno Universitario y la Inclusión Nodocente",
+    "slug": "investigacion-cogobierno",
+    "url": "https://edunpaz.unpaz.edu.ar/OMP/index.php/edunpaz/catalog/book/157",
+    "desc": "Estudio sociohistórico sobre las asimetrías de representación en los consejos superiores de las universidades públicas argentinas tras la Reforma de 1918.",
+    "tags": [
+      "Historia",
+      "Cogobierno",
+      "Nodocente",
+      "Reforma 1918"
+    ],
+    "badge": "Publicado",
+    "icon": "bookmark",
+    "visible": false
+  },
+  {
+    "id": "proj-des-1",
+    "category": "en-desarrollo",
+    "categoryLabel": "En desarrollo",
+    "title": "Plataforma Federada de Microaprendizajes",
+    "slug": "desarrollo-microaprendizajes",
+    "url": "https://github.com",
+    "desc": "Diseño y arquitectura de una plataforma descentralizada para la entrega continua de cápsulas didácticas basadas en el modelo TPACK y software abierto.",
+    "tags": [
+      "Microaprendizaje",
+      "En Desarrollo",
+      "TPACK"
+    ],
+    "badge": "En Desarrollo",
+    "icon": "layers",
+    "visible": false
+  },
+  {
+    "id": "proj-des-2",
+    "category": "en-desarrollo",
+    "categoryLabel": "En desarrollo",
+    "title": "Copiloto Pedagógico Local sin Telemetría",
+    "slug": "desarrollo-copiloto-local",
+    "url": "https://github.com",
+    "desc": "Entrenamiento e inferencia local de modelos de lenguaje pequeños (SLM) asistiendo la formulación de evaluaciones universitarias sin fuga de datos estudiantiles.",
+    "tags": [
+      "IA Local",
+      "Privacidad",
+      "En Desarrollo"
+    ],
+    "badge": "Fase Beta",
+    "icon": "shield",
+    "visible": false
+  }
+]

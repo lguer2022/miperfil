@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e2b4d"/>
+      <stop offset="100%" stop-color="#0c162e"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Golden Borders & Frame -->
+  <rect x="30" y="30" width="540" height="840" fill="none" stroke="#d4b574" stroke-width="2"/>
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#d4b574" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Author Name -->
+  <text x="300" y="115" font-family="'Newsreader', Georgia, serif" font-weight="600" font-size="28" fill="#e8c988" text-anchor="middle" letter-spacing="4">LEANDRO GUERSCHBERG</text>
+  <line x1="180" y1="140" x2="420" y2="140" stroke="#d4b574" stroke-width="1.5"/>
+
+  <!-- Main Title -->
+  <text x="300" y="270" font-family="'Newsreader', Georgia, serif" font-weight="700" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">Evolución del</text>
+  <text x="300" y="330" font-family="'Newsreader', Georgia, serif" font-weight="700" font-size="46" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">Gobierno de las</text>
+  <text x="300" y="390" font-family="'Newsreader', Georgia, serif" font-weight="700" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">Universidades</text>
+  <text x="300" y="450" font-family="'Newsreader', Georgia, serif" font-weight="700" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">Argentinas</text>
+
+  <!-- Subtitle -->
+  <text x="300" y="525" font-family="'IBM Plex Sans', sans-serif" font-weight="400" font-size="24" fill="#d4b574" text-anchor="middle" letter-spacing="3">DESDE EL AÑO 1918</text>
+
+  <!-- Ornamental divider -->
+  <g transform="translate(300, 600)">
+    <circle cx="0" cy="0" r="5" fill="#d4b574"/>
+    <line x1="-120" y1="0" x2="-20" y2="0" stroke="#d4b574" stroke-width="1"/>
+    <line x1="20" y1="0" x2="120" y2="0" stroke="#d4b574" stroke-width="1"/>
+  </g>
+
+  <!-- Cogobierno / Nodocente thematic emblem -->
+  <g transform="translate(300, 690)">
+    <path d="M-40,20 L0,-30 L40,20 Z" fill="none" stroke="#d4b574" stroke-width="2" opacity="0.7"/>
+    <text x="0" y="35" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#a8b6d3" text-anchor="middle" letter-spacing="2">REFORMA · COGOBIERNO · AUTONOMÍA</text>
+  </g>
+
+  <!-- Publisher Footer -->
+  <text x="300" y="810" font-family="'IBM Plex Sans', sans-serif" font-weight="600" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="2">ELIVA PRESS</text>
+  <text x="300" y="835" font-family="'IBM Plex Mono', monospace" font-size="13" fill="#8f9eb9" text-anchor="middle">2025 · 92 PÁGINAS</text>
+</svg>

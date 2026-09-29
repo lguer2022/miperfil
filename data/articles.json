@@ -1,0 +1,510 @@
+[
+  {
+    "id": "pub-2026-1",
+    "year": 2026,
+    "title": "Cuando los copilotos confabulan: Una revisión crítica de las alucinaciones en la escritura científica asistida por inteligencia artificial",
+    "authors": "Guerschberg",
+    "venue": "Revista Multidisciplinar Epistemología de las Ciencias - Omniscens",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Aceptado",
+    "link": null,
+    "tags": [
+      "Tecnología en educación superior",
+      "IA, trabajo y sociedad"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-2",
+    "year": 2026,
+    "title": "Software libre, inteligencia artificial y vigilancia algorítmica en la formación universitaria: hallazgos de tres investigaciones en la UNPAZ (2024-2026)",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "SAGA: Revista Científica Multidisciplinar",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2026). Software libre, inteligencia artificial y vigilancia algorítmica en la formación universitaria: hallazgos de tres investigaciones en la UNPAZ (2024-2026). SAGA: Revista Científica Multidisciplinar, 3(3), 571-582. https://doi.org/10.63415/saga.v3i3.476",
+    "link": "https://doi.org/10.63415/saga.v3i3.476",
+    "tags": [
+      "Soberanía digital y software libre",
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-3",
+    "year": 2026,
+    "title": "De la evaluación del producto a la evaluación del proceso: rediseño de la evaluación universitaria frente a la inteligencia artificial generativa",
+    "authors": "Guerschberg",
+    "venue": "Ciencia Latina Revista Científica Multidisciplinar",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Aceptado",
+    "link": null,
+    "tags": [
+      "Tecnología en educación superior",
+      "Pedagogía y representaciones sociales"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-4",
+    "year": 2026,
+    "title": "El Personal Nodocente en la UBA: Pilar de la Gestión Universitaria y su Contribución a la Calidad Educativa",
+    "authors": "Guerschberg",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "citation": "Guerschberg, L. (2026). El personal Nodocente en la Universidad de Buenos Aires: aportes a la gestión universitaria y a la calidad educativa desde una revisión integrativa de la literatura. Nexus Interdisciplinaris, 2(2), 32-57. https://doi.org/10.5281/zenodo.22945023",
+    "link": "https://doi.org/10.5281/zenodo.22945023",
+    "tags": [
+      "Gobierno universitario y Nodocente"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-5",
+    "year": 2026,
+    "title": "Soberanía tecnológica y desarrollo bonaerense: IA para la formación y el trabajo en bioimágenes desde la UNPAZ",
+    "authors": "Guerschberg, Rivero, Gutierrez",
+    "venue": "Perspectivas Bonaerenses",
+    "type": "Artículo",
+    "date": "En prensa · diciembre de 2026",
+    "status": "En prensa",
+    "link": null,
+    "tags": [
+      "Soberanía digital y software libre",
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-6",
+    "year": 2026,
+    "title": "¿Tendencia o moda? Nuevas evidencias sobre microaprendizaje en educación superior (2021–2026)",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "I+D Internacional Revista Científica y Académica",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "link": "https://doi.org/10.63636/rciid.v5i2.86",
+    "tags": [
+      "Microaprendizaje"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-7",
+    "year": 2026,
+    "title": "Soberanía digital y software libre en la formación docente: del desconocimiento conceptual a la demanda curricular. Un estudio pre-post en el PUEF-UNPAZ",
+    "authors": "Guerschberg, Crespo",
+    "venue": "Ibero Ciencias — Revista Científica y Académica",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "link": "https://doi.org/10.63371/ic.v5.n3.a1524",
+    "tags": [
+      "Soberanía digital y software libre"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-8",
+    "year": 2026,
+    "title": "Inteligencia Artificial y Microaprendizajes: Transformando la Enseñanza y el Aprendizaje en la Era Digital",
+    "authors": "Guerschberg",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "link": "https://doi.org/10.5281/zenodo.22018565",
+    "tags": [
+      "Tecnología en educación superior",
+      "Microaprendizaje"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-9",
+    "year": 2026,
+    "title": "Inteligencia artificial reproducible en educación superior: desarrollo y despliegue de un modelo de detección de neumonía con aprendizaje transferido",
+    "authors": "Guerschberg, Gutierrez, Rivero",
+    "venue": "SADE — Revista UNPAZ",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "link": "https://publicaciones.unpaz.edu.ar/OJS/index.php/sade/article/view/2279/2137",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2026-10",
+    "year": 2026,
+    "title": "Contra el colonialismo digital: soberanía tecnológica en la UNPAZ",
+    "authors": "Guerschberg",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2026",
+    "status": "Publicado",
+    "link": "https://doi.org/10.5281/zenodo.18460200",
+    "tags": [
+      "Soberanía digital y software libre"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-1",
+    "year": 2025,
+    "title": "La paradoja del Preguntados: el destino pedagógico de la inteligencia artificial",
+    "authors": "Guerschberg",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.5281/zenodo.17873099",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-2",
+    "year": 2025,
+    "title": "Ciberodio y resiliencia digital en niños, niñas y adolescentes: estrategias pedagógicas frente al hate speech en redes sociales",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Revista SAGA",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.63415/saga.v2i4.288",
+    "tags": [
+      "Pedagogía y representaciones sociales"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-3",
+    "year": 2025,
+    "title": "De la sociedad del conocimiento a la sociedad artificial: mutaciones del vínculo digital en la era generativa",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Revista Iberociencias",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.63371/ic.v4.n4.a452",
+    "tags": [
+      "Tecnología en educación superior",
+      "IA, trabajo y sociedad"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-4",
+    "year": 2025,
+    "title": "Blockchain en la educación superior latinoamericana: estado actual, aplicaciones y desafíos ético-tecnológicos",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Ciencia Latina Revista Científica Multidisciplinar",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.37811/cl_rcm.v9i5.20933",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-5",
+    "year": 2025,
+    "title": "El estado de ánimo de los docentes universitarios: impacto del congelamiento presupuestario y sus consecuencias emocionales",
+    "authors": "Guerschberg, Gutierrez, Nobili, Ferreyra, Freijo Becchero",
+    "venue": "Campo Universitario",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/135",
+    "tags": [
+      "Pedagogía y representaciones sociales"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-6",
+    "year": 2025,
+    "title": "IAcracia universitaria: los riesgos del copilotaje en la gestión Nodocente",
+    "authors": "Guerschberg, Benitez",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://nexusmundiediciones.com/index.php/interdisciplinaris/article/view/2",
+    "tags": [
+      "Gobierno universitario y Nodocente",
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-7",
+    "year": 2025,
+    "title": "El Fediverso como alternativa democratizadora: descentralización, soberanía tecnológica y resistencia a la desinformación en la era digital",
+    "authors": "Guerschberg, Gutiérrez",
+    "venue": "O Universo Observável",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.69720/29660599.2025.00099",
+    "tags": [
+      "Soberanía digital y software libre"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-9",
+    "year": 2025,
+    "title": "La ausencia de Nodocentes en el cogobierno de la UBA: injusticia epistémica y agenda de debate para la reforma",
+    "authors": "Guerschberg",
+    "venue": "Journal of Frontiers in Multidisciplinary Research",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "En revisión",
+    "link": "https://doi.org/10.54660/.ijfmr.2025.6.1.174-178",
+    "tags": [
+      "Gobierno universitario y Nodocente"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-11",
+    "year": 2025,
+    "title": "Diseño de materiales didácticos con perspectiva de género mediado por IA",
+    "authors": "Guerschberg",
+    "venue": "Nexus Interdisciplinaris",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://nexusmundiediciones.com/index.php/interdisciplinaris/article/view/1",
+    "tags": [
+      "Género y tecnología",
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-12",
+    "year": 2025,
+    "title": "El mundo laboral bajo amenaza ante el avance de la IA y la consolidación de las derechas",
+    "authors": "Guerschberg",
+    "venue": "The International Journal of Multidisciplinary Research and Growth Evaluation",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.54660/.IJMRGE.2025.6.2.1515-1520",
+    "tags": [
+      "IA, trabajo y sociedad"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-13",
+    "year": 2025,
+    "title": "IAcracia: nuevos desafíos del Estado",
+    "authors": "Guerschberg",
+    "venue": "Sapiens in Artificial Intelligence",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.71068/pdrdqf37",
+    "tags": [
+      "Gobierno universitario y Nodocente",
+      "IA, trabajo y sociedad"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-14",
+    "year": 2025,
+    "title": "Impacto de la soberanía digital en poblaciones vulnerables: el rol del software libre en educación para cerrar la brecha digital",
+    "authors": "Guerschberg",
+    "venue": "Sapiens Discoveries International Journal",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.71068/bzae9v37",
+    "tags": [
+      "Soberanía digital y software libre"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2025-15",
+    "year": 2025,
+    "title": "Inteligencia artificial en la educación semipresencial: percepciones estudiantiles y desafíos del aprendizaje en la UNPAZ — un estudio de caso",
+    "authors": "Guerschberg",
+    "venue": "O Universo Observável",
+    "type": "Artículo",
+    "date": "2025",
+    "status": "Publicado",
+    "link": "https://doi.org/10.69720/29660599.2025.00062",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-1",
+    "year": 2024,
+    "title": "Revolución en la educación a través de la inteligencia artificial y los microaprendizajes: nuevas fronteras del aprendizaje personalizado",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Sapiens International Multidisciplinary Journal",
+    "type": "Artículo",
+    "date": "Diciembre de 2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.71068/j4bnna33",
+    "tags": [
+      "Tecnología en educación superior",
+      "Microaprendizaje"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-2",
+    "year": 2024,
+    "title": "Copilotos virtuales: el rol de la inteligencia artificial generativa en la educación superior",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Emergentes — Revista Científica",
+    "type": "Artículo",
+    "date": "Noviembre de 2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.60112/erc.v4.i4.261",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-4",
+    "year": 2024,
+    "title": "Tutoría con IA generativa en la educación superior: oportunidades y desafíos en el aprendizaje",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Ciencia Latina Revista Científica Multidisciplinar",
+    "type": "Artículo",
+    "date": "Octubre de 2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.37811/cl_rcm.v8i5.14391",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-5",
+    "year": 2024,
+    "title": "Inteligencia artificial generativa: apoyando e impulsando la tarea docente",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Revista Nuevas Propuestas (UCA Santiago del Estero)",
+    "type": "Artículo",
+    "date": "Octubre de 2024",
+    "status": "Publicado",
+    "link": "http://ediciones.ucse.edu.ar/ojsucse/index.php/nuevaspropuestas/article/view/721",
+    "tags": [
+      "Tecnología en educación superior"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-6",
+    "year": 2024,
+    "title": "Representaciones sociales de estudiantes y docentes universitarios sobre los usos académicos de herramientas de inteligencia artificial generativa",
+    "authors": "Guerschberg, Gutierrez",
+    "venue": "Campo Universitario",
+    "type": "Artículo",
+    "date": "Agosto de 2024",
+    "status": "Publicado",
+    "link": null,
+    "tags": [
+      "Tecnología en educación superior",
+      "Pedagogía y representaciones sociales"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-7",
+    "year": 2024,
+    "title": "Representaciones sociales de estudiantes y docentes universitarios sobre los procesos de enseñanza y aprendizaje durante la pandemia de COVID-19",
+    "authors": "Guerschberg, Freijo",
+    "venue": "Campo Universitario",
+    "type": "Artículo",
+    "date": "Junio de 2024",
+    "status": "Publicado",
+    "link": null,
+    "tags": [
+      "Pedagogía y representaciones sociales"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-8",
+    "year": 2024,
+    "title": "Microaprendizaje en educación superior: impacto en el desarrollo del proceso de aprendizaje",
+    "authors": "Gutierrez, Guerschberg",
+    "venue": "Sapiens in Higher Education",
+    "type": "Artículo",
+    "date": "2024",
+    "status": "Publicado",
+    "link": "https://revistasapiensec.com/index.php/Sapiens_in_Higher_Education/article/view/85",
+    "tags": [
+      "Microaprendizaje"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-9",
+    "year": 2024,
+    "title": "La generación que no fue: estudio sobre competencias digitales críticas",
+    "authors": "Gutierrez, Guerschberg",
+    "venue": "O Universo Observável",
+    "type": "Artículo",
+    "date": "2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.69720/2966-0599.2025.00020",
+    "tags": [
+      "Soberanía digital y software libre"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-10",
+    "year": 2024,
+    "title": "De la automatización a la autonomía: consecuencias de la inteligencia artificial en la Cuarta Revolución Industrial",
+    "authors": "Guerschberg",
+    "venue": "Multidisciplinary Latin American Journal",
+    "type": "Artículo",
+    "date": "2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.62131/mlaj-v3-n1-002",
+    "tags": [
+      "IA, trabajo y sociedad"
+    ],
+    "visible": true
+  },
+  {
+    "id": "pub-2024-11",
+    "year": 2024,
+    "title": "Tecnología con perspectiva: explorando actitudes hacia el feminismo y la igualdad de género en la era de la inteligencia artificial",
+    "authors": "Guerschberg",
+    "venue": "O Universo Observável",
+    "type": "Artículo",
+    "date": "2024",
+    "status": "Publicado",
+    "link": "https://doi.org/10.69720/2966-0599.2025.00021",
+    "tags": [
+      "Género y tecnología"
+    ],
+    "visible": true
+  }
+]
