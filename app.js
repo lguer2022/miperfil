@@ -343,9 +343,8 @@ function renderTags() {
 }
 
 function syncPills() {
-  Array.from(tagPillsEl.children).forEach((btn, idx) => {
-    if (idx === 0) btn.classList.toggle('active', activeTags.size === 0);
-  });
+  // Redibuja las etiquetas para que la seleccionada quede resaltada
+  renderTags();
 }
 
 // Render Articles
@@ -810,26 +809,20 @@ function handleAddProject(e) {
 // Avatar upload and persistence
 const avatarImg = document.getElementById('avatar-img');
 const navAvatarImg = document.querySelector('.nav-brand img');
-const avatarFileInput = document.getElementById('avatar-file-input');
-const avatarFrameTrigger = document.getElementById('avatar-frame-trigger');
 const dashboardPhotoInput = document.getElementById('dashboard-photo-input');
 
 function setupAvatarHandlers() {
-  const savedAvatar = localStorage.getItem('user_avatar');
-  if (savedAvatar) {
-    if (avatarImg) avatarImg.src = savedAvatar;
-    if (navAvatarImg) navAvatarImg.src = savedAvatar;
-  }
+  // La foto pública se sirve siempre desde assets/foto_leandro.jpg.
+  // Se elimina cualquier foto vieja guardada en el navegador para que no tape la nueva.
+  try { localStorage.removeItem('user_avatar'); } catch (e) {}
 
   function handleFile(file) {
-    if (!file) return;
+    if (!file || !isAdminLoggedIn) return;
     const reader = new FileReader();
     reader.onload = async (e) => {
       const dataUrl = e.target.result;
       if (avatarImg) avatarImg.src = dataUrl;
       if (navAvatarImg) navAvatarImg.src = dataUrl;
-      localStorage.setItem('user_avatar', dataUrl);
-
       try {
         await fetch('/api/avatar', {
           method: 'POST',
@@ -842,11 +835,6 @@ function setupAvatarHandlers() {
       }
     };
     reader.readAsDataURL(file);
-  }
-
-  if (avatarFrameTrigger && avatarFileInput) {
-    avatarFrameTrigger.onclick = () => avatarFileInput.click();
-    avatarFileInput.onchange = (e) => handleFile(e.target.files[0]);
   }
 
   if (dashboardPhotoInput) {
