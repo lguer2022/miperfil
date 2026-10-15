@@ -10,6 +10,96 @@ let isAdminLoggedIn = false;
 let currentDashTab = 'articles';
 let targetBookCoverId = null;
 
+
+// ---------- Supabase ----------
+const sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+const AVATAR_DEFAULT = 'assets/foto_leandro.jpg?v=2026-10';
+
+// Escapa texto antes de insertarlo como HTML (evita inyección de código)
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+// Conversión entre el formato de la base y el que usa la página
+const DB = {
+  articles: {
+    from: r => ({ id: r.id, year: r.year, title: r.title, authors: r.authors, venue: r.venue, type: r.type, date: r.date, status: r.status, link: r.link, citation: r.citation, tags: r.tags || [], visible: r.visible }),
+    to: x => ({ id: x.id, year: x.year, title: x.title, authors: x.authors ?? null, venue: x.venue, type: x.type ?? 'Artículo', date: x.date ?? null, status: x.status ?? 'Publicado', link: x.link ?? null, citation: x.citation ?? null, tags: x.tags || [], visible: x.visible !== false })
+  },
+  projects: {
+    from: r => ({ id: r.id, title: r.title, slug: r.slug, category: r.category, categoryLabel: r.category_label, url: r.url, desc: r.description, tags: r.tags || [], badge: r.badge, icon: r.icon, status: r.status, thumb: r.thumb, visible: r.visible }),
+    to: x => ({ id: x.id, title: x.title, slug: x.slug ?? null, category: x.category, category_label: x.categoryLabel ?? null, url: x.url ?? null, description: x.desc ?? null, tags: x.tags || [], badge: x.badge ?? null, icon: x.icon ?? null, status: x.status ?? null, thumb: x.thumb ?? null, visible: x.visible !== false })
+  },
+  books: {
+    from: r => ({ id: r.id, type: r.type, title: r.title, authors: r.authors, editor: r.editor, date: r.date, year: r.year, pages: r.pages, isbn: r.isbn, status: r.status, link: r.link, desc: r.description, citation: r.citation, cover: r.cover, visible: r.visible }),
+    to: x => ({ id: x.id, type: x.type, title: x.title, authors: x.authors ?? null, editor: x.editor ?? null, date: x.date ?? null, year: x.year ?? null, pages: x.pages ?? null, isbn: x.isbn ?? null, status: x.status ?? 'Publicado', link: x.link ?? null, description: x.desc ?? null, citation: x.citation ?? null, cover: x.cover ?? null, visible: x.visible !== false })
+  }
+};
+const knownIds = { articles: new Set(), projects: new Set(), books: new Set() };
+
+// Lee una tabla ordenada. Si Supabase no responde, usa la copia estática de data/*.json
+async function fetchTable(table) {
+  try {
+    const { data, error } = await sb.from(table).select('*').order('position', { ascending: true });
+    if (error) throw error;
+    knownIds[table] = new Set(data.map(r => r.id));
+    return data.map(DB[table].from);
+  } catch (err) {
+    console.warn(`Supabase no disponible para ${table}, usando data/${table}.json`, err);
+    const res = await fetch(`data/${table}.json`);
+    const list = res.ok ? await res.json() : [];
+    return list.filter(x => x.visible !== false);
+  }
+}
+
+// Guarda la lista completa: actualiza/crea filas (con su orden) y borra las eliminadas
+async function syncTable(table, list) {
+  if (!isAdminLoggedIn) return false;
+  const now = new Date().toISOString();
+  const rows = list.map((x, i) => ({ ...DB[table].to(x), position: i, updated_at: now }));
+  const currentIds = new Set(rows.map(r => r.id));
+  const removed = [...knownIds[table]].filter(id => !currentIds.has(id));
+  try {
+    if (rows.length) {
+      const { error } = await sb.from(table).upsert(rows, { onConflict: 'id' });
+      if (error) throw error;
+    }
+    if (removed.length) {
+      const { error } = await sb.from(table).delete().in('id', removed);
+      if (error) throw error;
+    }
+    knownIds[table] = currentIds;
+    return true;
+  } catch (err) {
+    console.error(`Error guardando ${table}`, err);
+    alert('No se pudo guardar en la base de datos: ' + (err.message || err) + '\nSi la sesión expiró, vuelva a ingresar.');
+    return false;
+  }
+}
+
+// Sube una imagen al bucket "media" y devuelve su URL pública
+async function uploadImage(file, folder) {
+  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+  const path = `${folder}/${Date.now()}.${ext}`;
+  const { error } = await sb.storage.from('media').upload(path, file, { upsert: true, contentType: file.type || 'image/jpeg' });
+  if (error) throw error;
+  return sb.storage.from('media').getPublicUrl(path).data.publicUrl;
+}
+
+async function loadAvatar() {
+  try {
+    const { data } = await sb.from('site_settings').select('value').eq('key', 'avatar_url').maybeSingle();
+    if (data && data.value) setAvatarSrc(data.value);
+  } catch (e) { /* se mantiene la foto por defecto */ }
+}
+
+function setAvatarSrc(src) {
+  const big = document.getElementById('avatar-img');
+  const small = document.querySelector('.nav-brand img');
+  if (big) big.src = src;
+  if (small) small.src = src;
+}
+
 // DOM Elements
 const pubListEl = document.getElementById('pub-list');
 const tagPillsEl = document.getElementById('tag-pills');
@@ -28,35 +118,13 @@ const adminDashboardBox = document.getElementById('admin-dashboard-box');
 
 // Fetch Books & Chapters
 async function loadBooks() {
-  try {
-    const res = await fetch('/api/books');
-    if (res.ok) {
-      books = await res.json();
-      localStorage.setItem('books_cache', JSON.stringify(books));
-    } else {
-      throw new Error('API offline');
-    }
-  } catch (err) {
-    const cached = localStorage.getItem('books_cache');
-    if (cached) {
-      books = JSON.parse(cached);
-    }
-  }
+  books = await fetchTable('books');
   renderBooks();
   if (isAdminLoggedIn) renderAdminBooksTable();
 }
 
 async function saveBooksToServer() {
-  localStorage.setItem('books_cache', JSON.stringify(books));
-  try {
-    await fetch('/api/books', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(books)
-    });
-  } catch (e) {
-    console.warn('Saved books in localStorage, server sync failed', e);
-  }
+  await syncTable('books', books);
   renderBooks();
 }
 
@@ -73,34 +141,30 @@ function renderBooks() {
   // Render books
   booksListEl.innerHTML = visibleBooks.map(b => {
     const coverSrc = b.cover || (b.title.includes('1918') ? 'assets/libro_eliva.svg' : 'assets/libro_edunpaz.svg');
-    const descParagraphs = (b.desc || '').split('\n\n').map(p => `<p class="book-desc">${p}</p>`).join('');
+    const descParagraphs = (b.desc || '').split('\n\n').map(p => `<p class="book-desc">${esc(p)}</p>`).join('');
 
     return `
-      <div class="book-card" id="book-card-${b.id}">
-        <div class="book-cover-wrapper" onclick="triggerBookCoverUpload('${b.id}')" title="Haga clic para cambiar o subir la portada">
-          <img class="book-cover-3d" id="book-img-${b.id}" src="${coverSrc}" alt="Portada de ${b.title}">
-          <span class="book-cover-upload-hint">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            Clic para subir portada
-          </span>
+      <div class="book-card" id="book-card-${esc(b.id)}">
+        <div class="book-cover-wrapper">
+          <img class="book-cover-3d" id="book-img-${esc(b.id)}" src="${esc(coverSrc)}" alt="Portada de ${esc(b.title)}">
         </div>
         <div>
-          <h3 class="book-title">${b.title}</h3>
-          <p class="book-authors">${b.authors}</p>
-          <p class="book-editorial">${b.editor}</p>
+          <h3 class="book-title">${esc(b.title)}</h3>
+          <p class="book-authors">${esc(b.authors)}</p>
+          <p class="book-editorial">${esc(b.editor)}</p>
 
           <div class="book-biblio-box">
-            ${b.isbn ? `<div class="book-biblio-item"><span class="book-biblio-label">ISBN</span><span class="book-biblio-val mono">${b.isbn}</span></div>` : ''}
-            ${b.pages ? `<div class="book-biblio-item"><span class="book-biblio-label">Extensión</span><span class="book-biblio-val">${b.pages}</span></div>` : ''}
-            ${b.date ? `<div class="book-biblio-item"><span class="book-biblio-label">Fecha</span><span class="book-biblio-val">${b.date}</span></div>` : ''}
-            <div class="book-biblio-item"><span class="book-biblio-label">Estado</span><span class="book-biblio-val"><span class="status-pill" style="margin:0;">${b.status || 'Publicado'}</span></span></div>
+            ${b.isbn ? `<div class="book-biblio-item"><span class="book-biblio-label">ISBN</span><span class="book-biblio-val mono">${esc(b.isbn)}</span></div>` : ''}
+            ${b.pages ? `<div class="book-biblio-item"><span class="book-biblio-label">Extensión</span><span class="book-biblio-val">${esc(b.pages)}</span></div>` : ''}
+            ${b.date ? `<div class="book-biblio-item"><span class="book-biblio-label">Fecha</span><span class="book-biblio-val">${esc(b.date)}</span></div>` : ''}
+            <div class="book-biblio-item"><span class="book-biblio-label">Estado</span><span class="book-biblio-val"><span class="status-pill" style="margin:0;">${esc(b.status || 'Publicado')}</span></span></div>
           </div>
 
           ${descParagraphs}
 
           ${b.link ? `
             <div style="margin-top:18px;">
-              <a class="btn-primary" href="${b.link}" target="_blank" rel="noopener">
+              <a class="btn-primary" href="${esc(b.link)}" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                 Descargar libro en acceso abierto (EDUNPAZ)
               </a>
@@ -114,19 +178,19 @@ function renderBooks() {
   // Render chapters
   chaptersListEl.innerHTML = visibleChapters.map(c => `
     <div class="chapter-card">
-      <span class="chapter-type">${c.type}</span>
-      <h4 class="chapter-title">${c.title}</h4>
-      <div class="chapter-editor">${c.editor} (${c.year})</div>
-      ${c.citation ? `<div class="chapter-citation">${c.citation}</div>` : ''}
-      <p class="chapter-desc">${c.desc}</p>
+      <span class="chapter-type">${esc(c.type)}</span>
+      <h4 class="chapter-title">${esc(c.title)}</h4>
+      <div class="chapter-editor">${esc(c.editor)} (${esc(c.year)})</div>
+      ${c.citation ? `<div class="chapter-citation">${esc(c.citation)}</div>` : ''}
+      <p class="chapter-desc">${esc(c.desc)}</p>
       <div style="margin-top:auto; padding-top:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <span class="status-pill" style="margin:0;">${c.status || 'Publicado'}</span>
+        <span class="status-pill" style="margin:0;">${esc(c.status || 'Publicado')}</span>
         <div style="display:flex; gap:8px; align-items:center;">
           ${c.id === 'chap-iaec24' ? `
             <a class="project-link" href="https://iies.aduba.org.ar/2026/02/13/lanzamiento-del-libro-dialogo-interamericano-sobre-inteligencia-artificial-en-educacion-cientifica/" target="_blank" rel="noopener" style="font-size:0.8rem;" title="Ver nota de lanzamiento oficial UBA - IIES">Info IIES ↗</a>
           ` : ''}
           ${c.link ? `
-            <a class="btn-sm" style="background:var(--navy); color:#ffffff; font-weight:500; text-decoration:none; padding:5px 12px; border-radius:3px; font-size:0.82rem;" href="${c.link}" target="_blank" rel="noopener">
+            <a class="btn-sm" style="background:var(--navy); color:#ffffff; font-weight:500; text-decoration:none; padding:5px 12px; border-radius:3px; font-size:0.82rem;" href="${esc(c.link)}" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 1-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               ${c.link.includes('.pdf') ? 'Leer libro completo (PDF) ↗' : 'Acceder al capítulo (DOI) ↗'}
             </a>
@@ -139,6 +203,7 @@ function renderBooks() {
 
 // Cover Upload Trigger
 window.triggerBookCoverUpload = function(bookId) {
+  if (!isAdminLoggedIn) return;
   targetBookCoverId = bookId;
   const input = document.getElementById('book-cover-file-input');
   if (input) input.click();
@@ -146,70 +211,26 @@ window.triggerBookCoverUpload = function(bookId) {
 
 // Fetch Projects
 async function loadProjects() {
-  try {
-    const res = await fetch('/api/projects');
-    if (res.ok) {
-      projects = await res.json();
-      localStorage.setItem('projects_cache', JSON.stringify(projects));
-    } else {
-      throw new Error('API offline');
-    }
-  } catch (err) {
-    const cached = localStorage.getItem('projects_cache');
-    if (cached) {
-      projects = JSON.parse(cached);
-    }
-  }
+  projects = await fetchTable('projects');
   renderProjects();
   if (isAdminLoggedIn) renderAdminProjectsTable();
 }
 
 async function saveProjectsToServer() {
-  localStorage.setItem('projects_cache', JSON.stringify(projects));
-  try {
-    await fetch('/api/projects', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(projects)
-    });
-  } catch (e) {
-    console.warn('Saved projects in localStorage, server sync failed', e);
-  }
+  await syncTable('projects', projects);
   renderProjects();
 }
 
 // Fetch Articles
 async function loadArticles() {
-  try {
-    const res = await fetch('/api/articles');
-    if (res.ok) {
-      articles = await res.json();
-      localStorage.setItem('articles_cache', JSON.stringify(articles));
-    } else {
-      throw new Error('API offline');
-    }
-  } catch (err) {
-    const cached = localStorage.getItem('articles_cache');
-    if (cached) {
-      articles = JSON.parse(cached);
-    }
-  }
+  articles = await fetchTable('articles');
   renderTags();
   renderArticles();
   if (isAdminLoggedIn) renderAdminTable();
 }
 
 async function saveArticlesToServer() {
-  localStorage.setItem('articles_cache', JSON.stringify(articles));
-  try {
-    await fetch('/api/articles', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(articles)
-    });
-  } catch (e) {
-    console.warn('Saved in localStorage, server sync failed', e);
-  }
+  await syncTable('articles', articles);
   renderArticles();
   renderTags();
 }
@@ -269,11 +290,11 @@ function renderProjects(category = currentProjectCategory) {
 
   projectsGridEl.innerHTML = list.map(p => {
     const domain = p.url ? p.url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
-    const tagsHtml = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+    const tagsHtml = (p.tags || []).map(t => `<span>${esc(t)}</span>`).join('');
     
     // Choose thumbnail or mockup illustration
     const thumbHtml = p.thumb 
-      ? `<img class="project-thumb" src="${p.thumb}" alt="${p.title}" loading="lazy">`
+      ? `<img class="project-thumb" src="${esc(p.thumb)}" alt="${esc(p.title)}" loading="lazy">`
       : `
         <div class="project-card-header">
           <div class="browser-dots">
@@ -281,7 +302,7 @@ function renderProjects(category = currentProjectCategory) {
             <span class="dot-yellow"></span>
             <span class="dot-green"></span>
           </div>
-          <span>${domain}</span>
+          <span>${esc(domain)}</span>
         </div>
       `;
 
@@ -290,18 +311,18 @@ function renderProjects(category = currentProjectCategory) {
         ${thumbHtml}
         <div class="project-content">
           <div class="project-meta-row">
-            <span class="project-category">${p.categoryLabel || p.category}</span>
-            ${p.badge ? `<span class="project-badge">${p.badge}</span>` : ''}
+            <span class="project-category">${esc(p.categoryLabel || p.category)}</span>
+            ${p.badge ? `<span class="project-badge">${esc(p.badge)}</span>` : ''}
           </div>
-          <h3 class="project-title">${p.title}</h3>
-          <p class="project-desc">${p.desc}</p>
+          <h3 class="project-title">${esc(p.title)}</h3>
+          <p class="project-desc">${esc(p.desc)}</p>
           ${tagsHtml ? `<div class="project-tags">${tagsHtml}</div>` : ''}
           <div class="project-footer">
-            <a class="project-link" href="${p.url}" target="_blank" rel="noopener">
+            <a class="project-link" href="${esc(p.url)}" target="_blank" rel="noopener">
               Abrir aplicación
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
             </a>
-            <span class="mono" style="font-size:0.75rem; color:var(--ink-faint);">${domain}</span>
+            <span class="mono" style="font-size:0.75rem; color:var(--ink-faint);">${esc(domain)}</span>
           </div>
         </div>
       </div>
@@ -379,23 +400,23 @@ function renderArticles() {
           <span class="count mono">${items.length} ${items.length === 1 ? 'publicación' : 'publicaciones'}</span>
         </div>
         ${items.map((p, idx) => {
-          const statusBadge = p.status ? `<span class="status-pill">${p.status}</span>` : '';
+          const statusBadge = p.status ? `<span class="status-pill">${esc(p.status)}</span>` : '';
           const titleHtml = p.link 
-            ? `<a href="${p.link}" target="_blank" rel="noopener">${p.title}</a>`
-            : p.title;
-          const tagsHtml = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+            ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
+            : esc(p.title);
+          const tagsHtml = (p.tags || []).map(t => `<span>${esc(t)}</span>`).join('');
           return `
             <div class="pub">
               <span class="idx mono">${idx + 1}.</span>
               <div class="pub-body">
                 <div class="pub-title">${titleHtml}${statusBadge}</div>
                 <div class="pub-meta">
-                  <span class="type">${p.type || 'Artículo'}</span>
+                  <span class="type">${esc(p.type || 'Artículo')}</span>
                   <span class="dot">·</span>
-                  <span class="venue">${p.venue}</span>
-                  ${p.date ? `<span class="dot">·</span>${p.date}` : ''}
+                  <span class="venue">${esc(p.venue)}</span>
+                  ${p.date ? `<span class="dot">·</span>${esc(p.date)}` : ''}
                 </div>
-                ${p.citation ? `<div style="margin-top:4px; font-size:0.8rem; color:var(--ink-faint);">${p.citation}</div>` : ''}
+                ${p.citation ? `<div style="margin-top:4px; font-size:0.8rem; color:var(--ink-faint);">${esc(p.citation)}</div>` : ''}
                 <div class="pub-tags">${tagsHtml}</div>
               </div>
             </div>
@@ -446,22 +467,58 @@ function switchDashTab(tab) {
   else if (tab === 'books') renderAdminBooksTable();
 }
 
-function handleLogin(e) {
+async function handleLogin(e) {
   e.preventDefault();
-  const u = document.getElementById('login-user').value.trim();
-  const p = document.getElementById('login-pass').value.trim();
+  const email = document.getElementById('login-user').value.trim();
+  const password = document.getElementById('login-pass').value;
   const errEl = document.getElementById('login-error');
+  const btn = e.target.querySelector('button[type="submit"]');
+  errEl.style.display = 'none';
+  if (btn) { btn.disabled = true; btn.textContent = 'Ingresando…'; }
 
-  if (u === 'admin3595' && p === '3595*3595') {
-    isAdminLoggedIn = true;
-    errEl.style.display = 'none';
-    adminLoginBox.style.display = 'none';
-    adminDashboardBox.style.display = 'block';
-    renderAdminTable();
-    renderAdminProjectsTable();
-  } else {
-    errEl.textContent = 'Credenciales incorrectas. Verifique usuario y contraseña.';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if (btn) { btn.disabled = false; btn.textContent = 'Ingresar al Dashboard'; }
+
+  if (error || !data.user) {
+    errEl.textContent = 'Credenciales incorrectas. Verifique email y contraseña.';
     errEl.style.display = 'block';
+    return;
+  }
+  if ((data.user.email || '').toLowerCase() !== window.ADMIN_EMAIL.toLowerCase()) {
+    await sb.auth.signOut();
+    errEl.textContent = 'Este usuario no tiene permisos de administrador.';
+    errEl.style.display = 'block';
+    return;
+  }
+  document.getElementById('login-pass').value = '';
+  await enterAdminMode(data.user.email);
+}
+
+async function enterAdminMode(email) {
+  isAdminLoggedIn = true;
+  const who = document.getElementById('admin-session-label');
+  if (who) who.textContent = 'Sesión activa: ' + email;
+  // Como admin se cargan también los elementos ocultos
+  await Promise.all([loadArticles(), loadProjects(), loadBooks()]);
+  adminLoginBox.style.display = 'none';
+  adminDashboardBox.style.display = 'block';
+  switchDashTab(currentDashTab);
+}
+
+async function handleLogout() {
+  await sb.auth.signOut();
+  isAdminLoggedIn = false;
+  adminDashboardBox.style.display = 'none';
+  adminLoginBox.style.display = 'block';
+  closeAdminModal();
+  await Promise.all([loadArticles(), loadProjects(), loadBooks()]);
+}
+
+async function restoreSession() {
+  const { data } = await sb.auth.getSession();
+  const email = data && data.session && data.session.user && data.session.user.email;
+  if (email && email.toLowerCase() === window.ADMIN_EMAIL.toLowerCase()) {
+    await enterAdminMode(email);
   }
 }
 
@@ -529,10 +586,10 @@ function renderAdminTable() {
       <td style="text-align:center;">
         <input type="checkbox" ${a.visible !== false ? 'checked' : ''} onchange="toggleArticleVisibility(${i})">
       </td>
-      <td><strong>${a.title}</strong></td>
-      <td>${a.venue}</td>
-      <td class="mono">${a.year}</td>
-      <td><span class="status-pill">${a.status || 'Publicado'}</span></td>
+      <td><strong>${esc(a.title)}</strong></td>
+      <td>${esc(a.venue)}</td>
+      <td class="mono">${esc(a.year)}</td>
+      <td><span class="status-pill">${esc(a.status || 'Publicado')}</span></td>
       <td>
         <div style="display:flex; gap:6px;">
           <button class="btn-sm btn-edit" onclick="editArticle(${i})">Editar</button>
@@ -676,11 +733,11 @@ function renderAdminProjectsTable() {
           <input type="checkbox" ${p.visible !== false ? 'checked' : ''} onchange="toggleProjectVisibility(${realIndex})">
         </td>
         <td>
-          <strong>${p.title}</strong>
-          <div style="font-size:0.78rem; color:var(--ink-faint); margin-top:2px;">${p.desc.substring(0, 75)}...</div>
+          <strong>${esc(p.title)}</strong>
+          <div style="font-size:0.78rem; color:var(--ink-faint); margin-top:2px;">${esc((p.desc || '').substring(0, 75))}...</div>
         </td>
-        <td><span class="status-pill">${p.categoryLabel || p.category}</span></td>
-        <td><a href="${p.url}" target="_blank" rel="noopener" style="font-size:0.8rem; font-family:'IBM Plex Mono', monospace;">${domain}</a></td>
+        <td><span class="status-pill">${esc(p.categoryLabel || p.category)}</span></td>
+        <td><a href="${esc(p.url)}" target="_blank" rel="noopener" style="font-size:0.8rem; font-family:'IBM Plex Mono', monospace;">${esc(domain)}</a></td>
         <td>
           <div style="display:flex; gap:6px;">
             <button class="btn-sm btn-edit" onclick="editProject(${realIndex})">Editar</button>
@@ -807,45 +864,33 @@ function handleAddProject(e) {
 }
 
 // Avatar upload and persistence
-const avatarImg = document.getElementById('avatar-img');
-const navAvatarImg = document.querySelector('.nav-brand img');
 const dashboardPhotoInput = document.getElementById('dashboard-photo-input');
 
 function setupAvatarHandlers() {
-  // La foto pública se sirve siempre desde assets/foto_leandro.jpg.
-  // Se elimina cualquier foto vieja guardada en el navegador para que no tape la nueva.
   try { localStorage.removeItem('user_avatar'); } catch (e) {}
-
-  function handleFile(file) {
+  if (!dashboardPhotoInput) return;
+  dashboardPhotoInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    e.target.value = '';
     if (!file || !isAdminLoggedIn) return;
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const dataUrl = e.target.result;
-      if (avatarImg) avatarImg.src = dataUrl;
-      if (navAvatarImg) navAvatarImg.src = dataUrl;
-      try {
-        await fetch('/api/avatar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageBase64: dataUrl })
-        });
-        alert('Foto actualizada exitosamente.');
-      } catch (err) {
-        console.warn('Error syncing avatar to server:', err);
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  if (dashboardPhotoInput) {
-    dashboardPhotoInput.onchange = (e) => handleFile(e.target.files[0]);
-  }
+    try {
+      const url = await uploadImage(file, 'avatar');
+      const { error } = await sb.from('site_settings').upsert({ key: 'avatar_url', value: url, updated_at: new Date().toISOString() });
+      if (error) throw error;
+      setAvatarSrc(url);
+      alert('Foto actualizada exitosamente.');
+    } catch (err) {
+      alert('No se pudo subir la foto: ' + (err.message || err));
+    }
+  };
 }
 
 // Initial Listeners
 document.getElementById('admin-btn').onclick = openAdminModal;
 document.getElementById('close-modal-btn').onclick = closeAdminModal;
 document.getElementById('login-form').onsubmit = handleLogin;
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) logoutBtn.onclick = handleLogout;
 document.getElementById('add-article-form').onsubmit = handleAddArticle;
 document.getElementById('add-project-form').onsubmit = handleAddProject;
 
@@ -939,14 +984,14 @@ function renderAdminBooksTable() {
           <input type="checkbox" ${b.visible !== false ? 'checked' : ''} onchange="toggleBookVisibility(${i})">
         </td>
         <td>
-          <strong>${b.title}</strong>
-          <div style="font-size:0.78rem; color:var(--ink-faint); margin-top:2px;">${b.authors}</div>
+          <strong>${esc(b.title)}</strong>
+          <div style="font-size:0.78rem; color:var(--ink-faint); margin-top:2px;">${esc(b.authors)}</div>
         </td>
-        <td><span class="status-pill">${b.type}</span></td>
-        <td>${b.editor}</td>
-        <td class="mono">${b.year}</td>
+        <td><span class="status-pill">${esc(b.type)}</span></td>
+        <td>${esc(b.editor)}</td>
+        <td class="mono">${esc(b.year)}</td>
         <td style="text-align:center;">
-          <img src="${coverThumb}" alt="Portada" style="width:28px; height:38px; object-fit:cover; border-radius:2px; cursor:pointer; border:1px solid var(--line-strong);" onclick="triggerBookCoverUpload('${b.id}')" title="Clic para subir o cambiar foto">
+          <img src="${esc(coverThumb)}" alt="Portada" style="width:28px; height:38px; object-fit:cover; border-radius:2px; cursor:pointer; border:1px solid var(--line-strong);" onclick="triggerBookCoverUpload('${esc(b.id)}')" title="Clic para subir o cambiar foto">
         </td>
         <td>
           <div style="display:flex; gap:6px;">
@@ -1083,32 +1128,20 @@ function setupBookCoverUploadHandler() {
   const input = document.getElementById('book-cover-file-input');
   if (!input) return;
 
-  input.onchange = (e) => {
+  input.onchange = async (e) => {
     const file = e.target.files[0];
-    if (!file || !targetBookCoverId) return;
-
-    const reader = new FileReader();
-    reader.onload = async (ev) => {
-      const dataUrl = ev.target.result;
-      const bIndex = books.findIndex(b => b.id === targetBookCoverId);
-      if (bIndex !== -1) {
-        books[bIndex].cover = dataUrl;
-        saveBooksToServer();
-        renderAdminBooksTable();
-      }
-
-      try {
-        await fetch('/api/book-cover', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ bookId: targetBookCoverId, imageBase64: dataUrl })
-        });
-      } catch (err) {
-        console.warn('Cover saved locally, server sync failed', err);
-      }
+    e.target.value = '';
+    if (!file || !targetBookCoverId || !isAdminLoggedIn) return;
+    const bIndex = books.findIndex(b => b.id === targetBookCoverId);
+    if (bIndex === -1) return;
+    try {
+      books[bIndex].cover = await uploadImage(file, 'covers');
+      await saveBooksToServer();
+      renderAdminBooksTable();
       alert('Portada de libro actualizada con éxito.');
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      alert('No se pudo subir la portada: ' + (err.message || err));
+    }
   };
 }
 
@@ -1146,6 +1179,8 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // Load on start
 setupAvatarHandlers();
 setupBookCoverUploadHandler();
+loadAvatar();
 loadArticles();
 loadProjects();
 loadBooks();
+restoreSession();
