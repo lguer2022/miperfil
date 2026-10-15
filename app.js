@@ -129,75 +129,70 @@ async function saveBooksToServer() {
 }
 
 // Render Books & Chapters
+function plural(n, one, many) { return `${n} ${n === 1 ? one : many}`; }
+
+function bookCover(b) {
+  return b.cover || (String(b.title || '').includes('1918') ? 'assets/libro_eliva.svg' : 'assets/libro_edunpaz.svg');
+}
+
 function renderBooks() {
   if (!booksListEl || !chaptersListEl) return;
 
   const visibleBooks = books.filter(b => b.visible !== false && b.type === 'Libro');
   const visibleChapters = books.filter(b => b.visible !== false && b.type === 'Capítulo de libro');
 
-  if (booksCountMetaEl) booksCountMetaEl.textContent = `${visibleBooks.length} libros publicados`;
-  if (chaptersCountMetaEl) chaptersCountMetaEl.textContent = `${visibleChapters.length} capítulos`;
+  if (booksCountMetaEl) booksCountMetaEl.textContent = plural(visibleBooks.length, 'libro', 'libros');
+  if (chaptersCountMetaEl) chaptersCountMetaEl.textContent = plural(visibleChapters.length, 'capítulo', 'capítulos');
 
-  // Render books
   booksListEl.innerHTML = visibleBooks.map(b => {
-    const coverSrc = b.cover || (b.title.includes('1918') ? 'assets/libro_eliva.svg' : 'assets/libro_edunpaz.svg');
-    const descParagraphs = (b.desc || '').split('\n\n').map(p => `<p class="book-desc">${esc(p)}</p>`).join('');
+    const paras = String(b.desc || '').split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+    const first = paras[0] ? `<p>${esc(paras[0])}</p>` : '';
+    const rest = paras.slice(1).map(p => `<p>${esc(p)}</p>`).join('');
+    const facts = [
+      ['Editorial', b.editor],
+      ['Año', b.year || b.date],
+      ['Extensión', b.pages],
+      ['ISBN', b.isbn],
+      ['Estado', b.status || 'Publicado']
+    ].filter(([, v]) => v);
+    const linkLabel = b.link && /\.pdf($|\?)/i.test(b.link) ? 'Descargar el libro (PDF)' : 'Ver el libro';
 
     return `
-      <div class="book-card" id="book-card-${esc(b.id)}">
-        <div class="book-cover-wrapper">
-          <img class="book-cover-3d" id="book-img-${esc(b.id)}" src="${esc(coverSrc)}" alt="Portada de ${esc(b.title)}">
+      <article class="book" id="book-card-${esc(b.id)}">
+        <div class="book-cover">
+          <img id="book-img-${esc(b.id)}" src="${esc(bookCover(b))}" alt="Tapa de ${esc(b.title)}" loading="lazy">
         </div>
-        <div>
+        <div class="book-body">
           <h3 class="book-title">${esc(b.title)}</h3>
           <p class="book-authors">${esc(b.authors)}</p>
-          <p class="book-editorial">${esc(b.editor)}</p>
-
-          <div class="book-biblio-box">
-            ${b.isbn ? `<div class="book-biblio-item"><span class="book-biblio-label">ISBN</span><span class="book-biblio-val mono">${esc(b.isbn)}</span></div>` : ''}
-            ${b.pages ? `<div class="book-biblio-item"><span class="book-biblio-label">Extensión</span><span class="book-biblio-val">${esc(b.pages)}</span></div>` : ''}
-            ${b.date ? `<div class="book-biblio-item"><span class="book-biblio-label">Fecha</span><span class="book-biblio-val">${esc(b.date)}</span></div>` : ''}
-            <div class="book-biblio-item"><span class="book-biblio-label">Estado</span><span class="book-biblio-val"><span class="status-pill" style="margin:0;">${esc(b.status || 'Publicado')}</span></span></div>
+          <div class="book-desc">
+            ${first}
+            ${rest ? `<details class="more"><summary>Leer la sinopsis completa</summary>${rest}</details>` : ''}
           </div>
-
-          ${descParagraphs}
-
+          <dl class="book-facts">
+            ${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}
+          </dl>
           ${b.link ? `
-            <div style="margin-top:18px;">
-              <a class="btn-primary" href="${esc(b.link)}" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                Descargar libro en acceso abierto (EDUNPAZ)
-              </a>
-            </div>
-          ` : ''}
+            <a class="btn-solid" href="${esc(b.link)}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              ${linkLabel}
+            </a>` : ''}
         </div>
-      </div>
+      </article>
     `;
   }).join('');
 
-  // Render chapters
   chaptersListEl.innerHTML = visibleChapters.map(c => `
-    <div class="chapter-card">
-      <span class="chapter-type">${esc(c.type)}</span>
+    <article class="chapter">
+      <p class="chapter-in">En <em>${esc(c.editor)}</em>${c.year ? `, ${esc(c.year)}` : ''}</p>
       <h4 class="chapter-title">${esc(c.title)}</h4>
-      <div class="chapter-editor">${esc(c.editor)} (${esc(c.year)})</div>
-      ${c.citation ? `<div class="chapter-citation">${esc(c.citation)}</div>` : ''}
-      <p class="chapter-desc">${esc(c.desc)}</p>
-      <div style="margin-top:auto; padding-top:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <span class="status-pill" style="margin:0;">${esc(c.status || 'Publicado')}</span>
-        <div style="display:flex; gap:8px; align-items:center;">
-          ${c.id === 'chap-iaec24' ? `
-            <a class="project-link" href="https://iies.aduba.org.ar/2026/02/13/lanzamiento-del-libro-dialogo-interamericano-sobre-inteligencia-artificial-en-educacion-cientifica/" target="_blank" rel="noopener" style="font-size:0.8rem;" title="Ver nota de lanzamiento oficial UBA - IIES">Info IIES ↗</a>
-          ` : ''}
-          ${c.link ? `
-            <a class="btn-sm" style="background:var(--navy); color:#ffffff; font-weight:500; text-decoration:none; padding:5px 12px; border-radius:3px; font-size:0.82rem;" href="${esc(c.link)}" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 1-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              ${c.link.includes('.pdf') ? 'Leer libro completo (PDF) ↗' : 'Acceder al capítulo (DOI) ↗'}
-            </a>
-          ` : ''}
-        </div>
+      ${c.desc ? `<p class="chapter-desc">${esc(c.desc)}</p>` : ''}
+      ${c.citation ? `<details class="more"><summary>Cómo citarlo</summary><p class="chapter-citation">${esc(c.citation)}</p></details>` : ''}
+      <div class="chapter-links">
+        ${c.link ? `<a class="text-link" href="${esc(c.link)}" target="_blank" rel="noopener">${/\.pdf($|\?)/i.test(c.link) ? 'Leer el libro completo (PDF)' : 'Leer el capítulo'}</a>` : ''}
+        ${c.id === 'chap-iaec24' ? `<a class="text-link" href="https://iies.aduba.org.ar/2026/02/13/lanzamiento-del-libro-dialogo-interamericano-sobre-inteligencia-artificial-en-educacion-cientifica/" target="_blank" rel="noopener">Nota de lanzamiento (IIES, UBA)</a>` : ''}
       </div>
-    </div>
+    </article>
   `).join('');
 }
 
@@ -239,132 +234,99 @@ async function saveArticlesToServer() {
 function renderProjects(category = currentProjectCategory) {
   currentProjectCategory = category;
 
-  // Update tabs active state
   document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.tab === category);
+    const on = btn.dataset.tab === category;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
 
   const visibleProjects = projects.filter(p => p.visible !== false);
+  const counts = {
+    todos: visibleProjects.length,
+    programacion: visibleProjects.filter(p => p.category === 'programacion').length,
+    investigacion: visibleProjects.filter(p => p.category === 'investigacion').length,
+    'en-desarrollo': visibleProjects.filter(p => p.category === 'en-desarrollo').length
+  };
+  Object.entries(counts).forEach(([k, v]) => {
+    const el = document.getElementById('tab-count-' + k);
+    if (el) el.textContent = v;
+    const tabBtn = document.querySelector(`.tab-btn[data-tab="${k}"]`);
+    if (tabBtn && k !== 'todos') tabBtn.hidden = v === 0 && currentProjectCategory !== k;
+  });
 
-  // Update counts on tabs
-  const countTodos = visibleProjects.length;
-  const countProg = visibleProjects.filter(p => p.category === 'programacion').length;
-  const countInv = visibleProjects.filter(p => p.category === 'investigacion').length;
-  const countDes = visibleProjects.filter(p => p.category === 'en-desarrollo').length;
-
-  const countTodosEl = document.getElementById('tab-count-todos');
-  const countProgEl = document.getElementById('tab-count-programacion');
-  const countInvEl = document.getElementById('tab-count-investigacion');
-  const countDesEl = document.getElementById('tab-count-en-desarrollo');
-
-  if (countTodosEl) countTodosEl.textContent = countTodos;
-  if (countProgEl) countProgEl.textContent = countProg;
-  if (countInvEl) countInvEl.textContent = countInv;
-  if (countDesEl) countDesEl.textContent = countDes;
-
-  // Filter by category
-  let list = category === 'todos' 
-    ? visibleProjects 
-    : visibleProjects.filter(p => p.category === category);
-
-  // Filter by search keyword
+  let list = category === 'todos' ? visibleProjects : visibleProjects.filter(p => p.category === category);
   const term = (projectSearchTerm || '').trim().toLowerCase();
   if (term) {
-    list = list.filter(p => 
+    list = list.filter(p =>
       (p.title + ' ' + (p.desc || '') + ' ' + (p.tags ? p.tags.join(' ') : '') + ' ' + (p.url || '')).toLowerCase().includes(term)
     );
   }
 
-  if (projCountMetaEl) {
-    projCountMetaEl.textContent = `${list.length} proyectos mostrados`;
-  }
+  if (projCountMetaEl) projCountMetaEl.textContent = plural(visibleProjects.length, 'proyecto', 'proyectos');
 
   if (list.length === 0) {
-    projectsGridEl.innerHTML = `
-      <div style="grid-column: 1/-1; padding: 36px 0; text-align: center; color: var(--ink-faint);">
-        No se encontraron proyectos en esta categoría con el criterio de búsqueda.
-      </div>
-    `;
+    projectsGridEl.innerHTML = `<p class="empty">Ningún proyecto coincide con “${esc(projectSearchTerm || '')}”. Probá con otra palabra o elegí “Todos”.</p>`;
     return;
   }
 
   projectsGridEl.innerHTML = list.map(p => {
     const domain = p.url ? p.url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
-    const tagsHtml = (p.tags || []).map(t => `<span>${esc(t)}</span>`).join('');
-    
-    // Choose thumbnail or mockup illustration
-    const thumbHtml = p.thumb 
-      ? `<img class="project-thumb" src="${esc(p.thumb)}" alt="${esc(p.title)}" loading="lazy">`
-      : `
-        <div class="project-card-header">
-          <div class="browser-dots">
-            <span class="dot-red"></span>
-            <span class="dot-yellow"></span>
-            <span class="dot-green"></span>
-          </div>
-          <span>${esc(domain)}</span>
-        </div>
-      `;
-
+    const desc = String(p.desc || '').replace(/\s*\n+\s*/g, ' ');
+    const tag = p.url ? 'a' : 'div';
+    const attrs = p.url ? `href="${esc(p.url)}" target="_blank" rel="noopener"` : '';
     return `
-      <div class="project-card">
-        ${thumbHtml}
-        <div class="project-content">
-          <div class="project-meta-row">
-            <span class="project-category">${esc(p.categoryLabel || p.category)}</span>
-            ${p.badge ? `<span class="project-badge">${esc(p.badge)}</span>` : ''}
-          </div>
-          <h3 class="project-title">${esc(p.title)}</h3>
-          <p class="project-desc">${esc(p.desc)}</p>
-          ${tagsHtml ? `<div class="project-tags">${tagsHtml}</div>` : ''}
-          <div class="project-footer">
-            <a class="project-link" href="${esc(p.url)}" target="_blank" rel="noopener">
-              Abrir aplicación
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
-            </a>
-            <span class="mono" style="font-size:0.75rem; color:var(--ink-faint);">${esc(domain)}</span>
-          </div>
-        </div>
-      </div>
+      <${tag} class="project" ${attrs}>
+        ${p.thumb ? `<img class="project-thumb" src="${esc(p.thumb)}" alt="" loading="lazy">` : ''}
+        <span class="project-cat">${esc(p.categoryLabel || p.category)}${p.badge ? ` <span class="project-badge">${esc(p.badge)}</span>` : ''}</span>
+        <h3 class="project-title">${esc(p.title)}</h3>
+        <p class="project-desc">${esc(desc)}</p>
+        ${domain ? `<span class="project-domain">${esc(domain)}</span>` : ''}
+      </${tag}>
     `;
   }).join('');
 }
 
-// Render Tags
+// Topic map (mapa de temas) — también funciona como filtro de publicaciones
+function topicColorIndex(tag, ordered) {
+  return (ordered.indexOf(tag) % 7) + 1;
+}
+
 function renderTags() {
   const visibleArticles = articles.filter(a => a.visible !== false);
   const tagCounts = {};
-  visibleArticles.forEach(a => {
-    (a.tags || []).forEach(t => {
-      tagCounts[t] = (tagCounts[t] || 0) + 1;
-    });
-  });
+  visibleArticles.forEach(a => (a.tags || []).forEach(t => { tagCounts[t] = (tagCounts[t] || 0) + 1; }));
+  const tags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a] || a.localeCompare(b));
+  window.__topicOrder = tags;
 
-  const tags = Object.keys(tagCounts).sort((a,b) => tagCounts[b] - tagCounts[a]);
+  const anyActive = activeTags.size > 0;
+  tagPillsEl.classList.toggle('has-active', anyActive);
+  tagPillsEl.innerHTML = tags.map(t => {
+    const on = activeTags.has(t);
+    return `
+      <button type="button" class="topic-seg${on ? ' active' : ''}" data-tag="${esc(t)}" aria-pressed="${on}"
+        style="--w:${tagCounts[t]}; --pct:${Math.round(tagCounts[t] / tagCounts[tags[0]] * 100)}; --c: var(--t${topicColorIndex(t, tags)})">
+        <span class="topic-count">${tagCounts[t]}</span>
+        <span class="topic-name">${esc(t)}</span>
+      </button>`;
+  }).join('');
 
-  tagPillsEl.innerHTML = '';
-  const allBtn = document.createElement('button');
-  allBtn.className = 'tag-pill ' + (activeTags.size === 0 ? 'active' : '');
-  allBtn.textContent = 'Todas';
-  allBtn.onclick = () => { activeTags.clear(); syncPills(); renderArticles(); };
-  tagPillsEl.appendChild(allBtn);
-
-  tags.forEach(t => {
-    const btn = document.createElement('button');
-    btn.className = 'tag-pill ' + (activeTags.has(t) ? 'active' : '');
-    btn.textContent = `${t} (${tagCounts[t]})`;
+  tagPillsEl.querySelectorAll('.topic-seg').forEach(btn => {
     btn.onclick = () => {
-      if (activeTags.has(t)) activeTags.delete(t);
-      else activeTags.add(t);
+      const t = btn.dataset.tag;
+      const wasOn = activeTags.has(t);
+      activeTags.clear();
+      if (!wasOn) activeTags.add(t);
       syncPills();
       renderArticles();
+      if (!wasOn) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById('publicaciones').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
     };
-    tagPillsEl.appendChild(btn);
   });
 }
 
 function syncPills() {
-  // Redibuja las etiquetas para que la seleccionada quede resaltada
   renderTags();
 }
 
@@ -374,57 +336,81 @@ function renderArticles() {
   const visible = articles.filter(a => a.visible !== false);
 
   const filtered = visible.filter(a => {
-    const matchSearch = !term || 
-      (a.title + ' ' + (a.authors||'') + ' ' + (a.venue||'')).toLowerCase().includes(term);
-    const matchTags = activeTags.size === 0 || 
-      (a.tags && a.tags.some(t => activeTags.has(t)));
+    const matchSearch = !term || (a.title + ' ' + (a.authors || '') + ' ' + (a.venue || '')).toLowerCase().includes(term);
+    const matchTags = activeTags.size === 0 || (a.tags && a.tags.some(t => activeTags.has(t)));
     return matchSearch && matchTags;
   });
 
-  pubCountMetaEl.textContent = `${visible.length} publicaciones visibles`;
+  const yearsAll = visible.map(a => a.year).filter(Boolean);
+  if (pubCountMetaEl) {
+    pubCountMetaEl.textContent = yearsAll.length
+      ? `${plural(visible.length, 'publicación', 'publicaciones')} entre ${Math.min(...yearsAll)} y ${Math.max(...yearsAll)}`
+      : '';
+  }
+
+  const filterMeta = document.getElementById('pub-filter-meta');
+  const clearBtn = document.getElementById('clear-topic');
+  const topic = [...activeTags][0];
+  if (filterMeta) {
+    filterMeta.textContent = (topic || term)
+      ? `${plural(filtered.length, 'resultado', 'resultados')}${topic ? ` en “${topic}”` : ''}`
+      : plural(visible.length, 'publicación', 'publicaciones');
+  }
+  if (clearBtn) clearBtn.hidden = !topic;
+
+  renderLatest(visible);
 
   if (filtered.length === 0) {
-    pubListEl.innerHTML = `<div style="padding:28px 0; color:var(--ink-faint);">No se encontraron publicaciones con ese criterio.</div>`;
+    pubListEl.innerHTML = `<p class="empty">Ninguna publicación coincide con esa búsqueda. Probá con otra palabra${topic ? ' o mirá todos los temas' : ''}.</p>`;
     return;
   }
 
-  const years = [...new Set(filtered.map(a => a.year))].sort((a,b) => b - a);
+  const order = window.__topicOrder || [];
+  const years = [...new Set(filtered.map(a => a.year))].sort((a, b) => b - a);
 
   pubListEl.innerHTML = years.map(year => {
     const items = filtered.filter(a => a.year === year);
     return `
       <div class="year-group">
-        <div class="year-head">
-          <span class="num mono">${year}</span>
-          <span class="line"></span>
-          <span class="count mono">${items.length} ${items.length === 1 ? 'publicación' : 'publicaciones'}</span>
-        </div>
-        ${items.map((p, idx) => {
-          const statusBadge = p.status ? `<span class="status-pill">${esc(p.status)}</span>` : '';
-          const titleHtml = p.link 
-            ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
-            : esc(p.title);
-          const tagsHtml = (p.tags || []).map(t => `<span>${esc(t)}</span>`).join('');
-          return `
-            <div class="pub">
-              <span class="idx mono">${idx + 1}.</span>
-              <div class="pub-body">
-                <div class="pub-title">${titleHtml}${statusBadge}</div>
+        <div class="year-head"><span class="num">${esc(year)}</span><span class="count">${plural(items.length, 'trabajo', 'trabajos')}</span></div>
+        <ol class="year-items">
+          ${items.map(p => {
+            const title = p.link
+              ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
+              : esc(p.title);
+            const status = p.status && p.status !== 'Publicado' ? `<span class="status-pill">${esc(p.status)}</span>` : '';
+            const dots = (p.tags || []).map(t => `<span class="dot" style="--c: var(--t${order.includes(t) ? topicColorIndex(t, order) : 1})" title="${esc(t)}"></span>`).join('');
+            return `
+              <li class="pub">
+                <div class="pub-title">${title}${status}</div>
                 <div class="pub-meta">
-                  <span class="type">${esc(p.type || 'Artículo')}</span>
-                  <span class="dot">·</span>
+                  <span class="pub-dots" aria-hidden="true">${dots}</span>
                   <span class="venue">${esc(p.venue)}</span>
-                  ${p.date ? `<span class="dot">·</span>${esc(p.date)}` : ''}
+                  <span class="pub-topics">${esc((p.tags || []).join(', '))}</span>
                 </div>
-                ${p.citation ? `<div style="margin-top:4px; font-size:0.8rem; color:var(--ink-faint);">${esc(p.citation)}</div>` : ''}
-                <div class="pub-tags">${tagsHtml}</div>
-              </div>
-            </div>
-          `;
-        }).join('')}
-      </div>
-    `;
+                ${p.citation ? `<details class="more"><summary>Cómo citarlo</summary><p class="pub-citation">${esc(p.citation)}</p></details>` : ''}
+              </li>`;
+          }).join('')}
+        </ol>
+      </div>`;
   }).join('');
+}
+
+// "Lo último" en la portada
+function renderLatest(visible) {
+  const el = document.getElementById('hero-latest');
+  if (!el) return;
+  if (!visible.length) { el.hidden = true; return; }
+  const maxYear = Math.max(...visible.map(a => a.year || 0));
+  const latest = visible.find(a => a.year === maxYear);
+  el.href = latest.link || '#publicaciones';
+  if (latest.link) { el.target = '_blank'; el.rel = 'noopener'; } else { el.removeAttribute('target'); }
+  const status = latest.status && latest.status !== 'Publicado' ? ` (${latest.status.toLowerCase()})` : '';
+  el.innerHTML = `
+    <span class="hl-label">Mi trabajo más reciente${esc(status)}</span>
+    <span class="hl-title">${esc(latest.title)}</span>
+    <span class="hl-venue">${esc(latest.venue)}, ${esc(latest.year)}</span>`;
+  el.hidden = false;
 }
 
 // Admin Modal & Dashboard
@@ -1164,6 +1150,8 @@ const addBookForm = document.getElementById('add-book-form');
 if (addBookForm) addBookForm.onsubmit = handleAddBook;
 
 searchEl.addEventListener('input', e => { searchTerm = e.target.value; renderArticles(); });
+const clearTopicBtn = document.getElementById('clear-topic');
+if (clearTopicBtn) clearTopicBtn.onclick = () => { activeTags.clear(); syncPills(); renderArticles(); };
 
 if (projSearchEl) {
   projSearchEl.addEventListener('input', e => {
