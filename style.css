@@ -293,6 +293,22 @@ button { font: inherit; }
   padding: 1px 9px; border-radius: 999px; white-space: nowrap;
 }
 
+/* Colores del cartel según el estado de la publicación */
+.status-pill.is-published { color: #146c3a; background: #e3f5ea; border-color: #9fd6b4; }
+.status-pill.is-accepted  { color: #9a4a00; background: #fff0e0; border-color: #f5bf86; }
+.status-pill.is-press     { color: #5b2d9e; background: #f1eafc; border-color: #c9b2ef; }
+.status-pill.is-review    { color: #b0222f; background: #fde8ea; border-color: #f2a9b0; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .status-pill.is-published { color: #7fdca2; background: #123224; border-color: #2c6a47; }
+  :root:not([data-theme="light"]) .status-pill.is-accepted  { color: #ffb873; background: #3a2410; border-color: #7a4a1c; }
+  :root:not([data-theme="light"]) .status-pill.is-press     { color: #c9aaff; background: #2a1d44; border-color: #5a3f8e; }
+  :root:not([data-theme="light"]) .status-pill.is-review    { color: #ff9aa4; background: #3a1418; border-color: #7a2e36; }
+}
+:root[data-theme="dark"] .status-pill.is-published { color: #7fdca2; background: #123224; border-color: #2c6a47; }
+:root[data-theme="dark"] .status-pill.is-accepted  { color: #ffb873; background: #3a2410; border-color: #7a4a1c; }
+:root[data-theme="dark"] .status-pill.is-press     { color: #c9aaff; background: #2a1d44; border-color: #5a3f8e; }
+:root[data-theme="dark"] .status-pill.is-review    { color: #ff9aa4; background: #3a1418; border-color: #7a2e36; }
+
 /* ---------- Proyectos ---------- */
 .projects-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 36px; }
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; }

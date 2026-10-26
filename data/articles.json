@@ -42,6 +42,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Aceptado",
+    "citation": "Guerschberg, L. (en prensa). De la evaluación del producto a la evaluación del proceso: rediseño de la evaluación universitaria frente a la inteligencia artificial generativa. Ciencia Latina Revista Científica Multidisciplinar.",
     "link": null,
     "tags": [
       "Tecnología en educación superior",
@@ -74,6 +75,7 @@
     "type": "Artículo",
     "date": "En prensa · diciembre de 2026",
     "status": "En prensa",
+    "citation": "Guerschberg, L., Rivero, L., & Gutierrez, Y. E. (en prensa). Soberanía tecnológica y desarrollo bonaerense: IA para la formación y el trabajo en bioimágenes desde la UNPAZ. Perspectivas Bonaerenses.",
     "link": null,
     "tags": [
       "Soberanía digital y software libre",
@@ -90,6 +92,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutiérrez, Y. E. (2026). ¿Tendencia o moda? Nuevas evidencias sobre microaprendizaje en educación superior (2021–2026). I+D Internacional Revista Científica y Académica, 5(2), 221-244. https://doi.org/10.63636/rciid.v5i2.86",
     "link": "https://doi.org/10.63636/rciid.v5i2.86",
     "tags": [
       "Microaprendizaje"
@@ -105,6 +108,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Crespo, G. A. (2026). Soberanía digital y software libre en la formación docente: del desconocimiento conceptual a la demanda curricular. Un estudio pre-post en el PUEF-UNPAZ. Ibero Ciencias - Revista Científica y Académica, 5(3), 1938-1949. https://doi.org/10.63371/ic.v5.n3.a1524",
     "link": "https://doi.org/10.63371/ic.v5.n3.a1524",
     "tags": [
       "Soberanía digital y software libre"
@@ -120,6 +124,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2026). Inteligencia artificial y microaprendizajes: transformando la enseñanza y el aprendizaje en la era digital. Nexus Interdisciplinaris, 2(1), 86-108. https://doi.org/10.5281/zenodo.22018565",
     "link": "https://doi.org/10.5281/zenodo.22018565",
     "tags": [
       "Tecnología en educación superior",
@@ -136,6 +141,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Publicado",
+    "citation": "Guerschberg, L., Rivero, L., & Gutierrez, Y. E. (2026). Inteligencia artificial reproducible en educación superior: desarrollo y despliegue de un modelo de detección de neumonía con aprendizaje transferido. SaDe - Revista de Ciencias de la Salud y el Deporte, (6), 125-142. https://publicaciones.unpaz.edu.ar/OJS/index.php/sade/article/view/2279",
     "link": "https://publicaciones.unpaz.edu.ar/OJS/index.php/sade/article/view/2279/2137",
     "tags": [
       "Tecnología en educación superior"
@@ -151,6 +157,7 @@
     "type": "Artículo",
     "date": "2026",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2026). Contra el colonialismo digital: soberanía tecnológica en la UNPAZ. Nexus Interdisciplinaris, 2(1), 13-38. https://doi.org/10.5281/zenodo.18460200",
     "link": "https://doi.org/10.5281/zenodo.18460200",
     "tags": [
       "Soberanía digital y software libre"
@@ -166,6 +173,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). El destino pedagógico de la inteligencia artificial: la «paradoja del Preguntados». Nexus Interdisciplinaris, 1(2), 1-37. https://doi.org/10.5281/zenodo.17873099",
     "link": "https://doi.org/10.5281/zenodo.17873099",
     "tags": [
       "Tecnología en educación superior"
@@ -181,6 +189,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2025). Ciberodio y resiliencia digital en niños, niñas y adolescentes: estrategias pedagógicas frente al hate speech en redes sociales. Revista Científica Multidisciplinar SAGA, 2(4), 303-320. https://doi.org/10.63415/saga.v2i4.288",
     "link": "https://doi.org/10.63415/saga.v2i4.288",
     "tags": [
       "Pedagogía y representaciones sociales"
@@ -196,6 +205,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2025). De la sociedad del conocimiento a la sociedad artificial: mutaciones del vínculo digital en la era generativa. Ibero Ciencias - Revista Científica y Académica, 4(4), 1623-1644. https://doi.org/10.63371/ic.v4.n4.a452",
     "link": "https://doi.org/10.63371/ic.v4.n4.a452",
     "tags": [
       "Tecnología en educación superior",
@@ -212,6 +222,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2025). Blockchain en la educación superior latinoamericana: estado actual, aplicaciones y desafíos ético-tecnológicos. Ciencia Latina Revista Científica Multidisciplinar, 9(5), 15962-15987. https://doi.org/10.37811/cl_rcm.v9i5.20933",
     "link": "https://doi.org/10.37811/cl_rcm.v9i5.20933",
     "tags": [
       "Tecnología en educación superior"
@@ -227,6 +238,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L., Gutierrez, Y. E., Nobili, C., Ferreyra, Y. V., & Freijo Becchero, F. (2025). El estado de ánimo de los docentes universitarios: impacto del congelamiento presupuestario y sus consecuencias emocionales. Campo Universitario, 6(12). https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/135",
     "link": "https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/135",
     "tags": [
       "Pedagogía y representaciones sociales"
@@ -242,7 +254,8 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
-    "link": "https://nexusmundiediciones.com/index.php/interdisciplinaris/article/view/2",
+    "citation": "Guerschberg, L., & Benitez, M. L. (2025). IAcracia universitaria: los riesgos del copilotaje en la gestión Nodocente. Nexus Interdisciplinaris, 1(1), 23-34. https://doi.org/10.5281/zenodo.17406756",
+    "link": "https://doi.org/10.5281/zenodo.17406756",
     "tags": [
       "Gobierno universitario y Nodocente",
       "Tecnología en educación superior"
@@ -258,6 +271,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2025). El Fediverso como alternativa democratizadora: descentralización, soberanía tecnológica y resistencia a la desinformación en la era digital. Revista O Universo Observável, 2(5), 1-10. https://doi.org/10.69720/29660599.2025.00099",
     "link": "https://doi.org/10.69720/29660599.2025.00099",
     "tags": [
       "Soberanía digital y software libre"
@@ -273,6 +287,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "En revisión",
+    "citation": "Guerschberg, L. (2025). La ausencia de Nodocentes en el cogobierno de la UBA: injusticia epistémica y agenda de debate para la reforma. Journal of Frontiers in Multidisciplinary Research, 6(1), 174-178. https://doi.org/10.54660/.IJFMR.2025.6.1.174-178",
     "link": "https://doi.org/10.54660/.ijfmr.2025.6.1.174-178",
     "tags": [
       "Gobierno universitario y Nodocente"
@@ -288,7 +303,8 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
-    "link": "https://nexusmundiediciones.com/index.php/interdisciplinaris/article/view/1",
+    "citation": "Guerschberg, L. (2025). Diseño de materiales didácticos con perspectiva de género mediado por IA. Nexus Interdisciplinaris, 1(1), 1-22. https://doi.org/10.5281/zenodo.17428671",
+    "link": "https://doi.org/10.5281/zenodo.17428671",
     "tags": [
       "Género y tecnología",
       "Tecnología en educación superior"
@@ -304,6 +320,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). The labour market under threat from AI and the rise of right-wing politics. International Journal of Multidisciplinary Research and Growth Evaluation, 6(2), 1515-1520. https://doi.org/10.54660/.IJMRGE.2025.6.2.1515-1520",
     "link": "https://doi.org/10.54660/.IJMRGE.2025.6.2.1515-1520",
     "tags": [
       "IA, trabajo y sociedad"
@@ -319,6 +336,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). IAcracia: nuevos desafíos del Estado. Sapiens in Artificial Intelligence, 2(1), 1-14. https://doi.org/10.71068/pdrdqf37",
     "link": "https://doi.org/10.71068/pdrdqf37",
     "tags": [
       "Gobierno universitario y Nodocente",
@@ -335,6 +353,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). Impacto de la soberanía digital en poblaciones vulnerables: el rol del software libre en educación para cerrar la brecha digital. Sapiens Discoveries International Journal, 3(1), 1-22. https://doi.org/10.71068/bzae9v37",
     "link": "https://doi.org/10.71068/bzae9v37",
     "tags": [
       "Soberanía digital y software libre"
@@ -350,6 +369,7 @@
     "type": "Artículo",
     "date": "2025",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). Inteligencia artificial en la educación semipresencial: percepciones estudiantiles y desafíos del aprendizaje en la UNPAZ. Un estudio de caso. Revista O Universo Observável, 2(3), 1-7. https://doi.org/10.69720/29660599.2025.00062",
     "link": "https://doi.org/10.69720/29660599.2025.00062",
     "tags": [
       "Tecnología en educación superior"
@@ -365,6 +385,7 @@
     "type": "Artículo",
     "date": "Diciembre de 2024",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2024). Revolución en la educación a través de la inteligencia artificial y los microaprendizajes: nuevas fronteras del aprendizaje personalizado. Sapiens International Multidisciplinary Journal, 1(3), 1-14. https://doi.org/10.71068/j4bnna33",
     "link": "https://doi.org/10.71068/j4bnna33",
     "tags": [
       "Tecnología en educación superior",
@@ -381,6 +402,7 @@
     "type": "Artículo",
     "date": "Noviembre de 2024",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2024). Copilotos virtuales: el rol de la inteligencia artificial generativa en la educación superior. Emergentes - Revista Científica, 4(4), 239-264. https://doi.org/10.60112/erc.v4.i4.261",
     "link": "https://doi.org/10.60112/erc.v4.i4.261",
     "tags": [
       "Tecnología en educación superior"
@@ -396,6 +418,7 @@
     "type": "Artículo",
     "date": "Octubre de 2024",
     "status": "Publicado",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2024). Tutoría con inteligencia artificial generativa en la educación superior: oportunidades y desafíos en el aprendizaje. Ciencia Latina Revista Científica Multidisciplinar, 8(5), 9960-9975. https://doi.org/10.37811/cl_rcm.v8i5.14391",
     "link": "https://doi.org/10.37811/cl_rcm.v8i5.14391",
     "tags": [
       "Tecnología en educación superior"
@@ -411,7 +434,8 @@
     "type": "Artículo",
     "date": "Octubre de 2024",
     "status": "Publicado",
-    "link": "http://ediciones.ucse.edu.ar/ojsucse/index.php/nuevaspropuestas/article/view/721",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2023). Inteligencia artificial generativa: apoyando e impulsando la tarea docente. Revista Nuevas Propuestas, (61), 53-60. https://ediciones.ucse.edu.ar/index.php/nuevaspropuestas/article/view/721",
+    "link": "https://ediciones.ucse.edu.ar/index.php/nuevaspropuestas/article/view/721",
     "tags": [
       "Tecnología en educación superior"
     ],
@@ -426,7 +450,8 @@
     "type": "Artículo",
     "date": "Agosto de 2024",
     "status": "Publicado",
-    "link": null,
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2024). Representaciones sociales de estudiantes y docentes universitarios sobre los usos académicos de herramientas de inteligencia artificial generativa. Campo Universitario, 5(10). https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/113",
+    "link": "https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/113",
     "tags": [
       "Tecnología en educación superior",
       "Pedagogía y representaciones sociales"
@@ -442,7 +467,8 @@
     "type": "Artículo",
     "date": "Junio de 2024",
     "status": "Publicado",
-    "link": null,
+    "citation": "Guerschberg, L., & Freijo Becchero, F. (2024). Representaciones sociales de estudiantes y docentes universitarios sobre los procesos de enseñanza y aprendizaje durante la pandemia de COVID-19. Campo Universitario, 5(9). https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/98",
+    "link": "https://campouniversitario.aduba.org.ar/ojs/index.php/cu/article/view/98",
     "tags": [
       "Pedagogía y representaciones sociales"
     ],
@@ -457,7 +483,8 @@
     "type": "Artículo",
     "date": "2024",
     "status": "Publicado",
-    "link": "https://revistasapiensec.com/index.php/Sapiens_in_Higher_Education/article/view/85",
+    "citation": "Guerschberg, L., & Gutierrez, Y. E. (2025). Microaprendizaje en educación superior: impacto en el desarrollo del proceso de aprendizaje. Sapiens in Higher Education, 2(1), 1-19. https://doi.org/10.71068/e0r8j297",
+    "link": "https://doi.org/10.71068/e0r8j297",
     "tags": [
       "Microaprendizaje"
     ],
@@ -472,6 +499,7 @@
     "type": "Artículo",
     "date": "2024",
     "status": "Publicado",
+    "citation": "Gutierrez, Y. E., & Guerschberg, L. (2025). La generación que no fue: estudio sobre competencias digitales críticas. Revista O Universo Observável, 2(1), 2-6. https://doi.org/10.69720/2966-0599.2025.00020",
     "link": "https://doi.org/10.69720/2966-0599.2025.00020",
     "tags": [
       "Soberanía digital y software libre"
@@ -487,6 +515,7 @@
     "type": "Artículo",
     "date": "2024",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). De la automatización a la autonomía: consecuencias de la inteligencia artificial en la Cuarta Revolución Industrial. Multidisciplinary Latin American Journal, 3(1), 22-42. https://doi.org/10.62131/mlaj-v3-n1-002",
     "link": "https://doi.org/10.62131/mlaj-v3-n1-002",
     "tags": [
       "IA, trabajo y sociedad"
@@ -502,6 +531,7 @@
     "type": "Artículo",
     "date": "2024",
     "status": "Publicado",
+    "citation": "Guerschberg, L. (2025). Tecnología con perspectiva: explorando actitudes hacia el feminismo y la igualdad de género en la era de la inteligencia artificial. Revista O Universo Observável, 2(1), 2-8. https://doi.org/10.69720/2966-0599.2025.00021",
     "link": "https://doi.org/10.69720/2966-0599.2025.00021",
     "tags": [
       "Género y tecnología"
