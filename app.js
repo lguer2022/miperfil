@@ -16,6 +16,16 @@ const sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANO
 const AVATAR_DEFAULT = 'assets/foto_leandro.jpg?v=2026-10';
 
 // Escapa texto antes de insertarlo como HTML (evita inyección de código)
+// Clase de color del cartel de estado de una publicación
+function statusClass(s) {
+  const k = (s || 'Publicado').toLowerCase();
+  if (k.startsWith('publicado')) return 'is-published';
+  if (k.startsWith('aceptado')) return 'is-accepted';
+  if (k.includes('prensa')) return 'is-press';
+  if (k.includes('revisi')) return 'is-review';
+  return '';
+}
+
 function esc(v) {
   return String(v ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 }
@@ -378,7 +388,7 @@ function renderArticles() {
             const title = p.link
               ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
               : esc(p.title);
-            const status = p.status && p.status !== 'Publicado' ? `<span class="status-pill">${esc(p.status)}</span>` : '';
+            const status = `<span class="status-pill ${statusClass(p.status)}">${esc(p.status || 'Publicado')}</span>`;
             const dots = (p.tags || []).map(t => `<span class="dot" style="--c: var(--t${order.includes(t) ? topicColorIndex(t, order) : 1})" title="${esc(t)}"></span>`).join('');
             return `
               <li class="pub">
@@ -575,7 +585,7 @@ function renderAdminTable() {
       <td><strong>${esc(a.title)}</strong></td>
       <td>${esc(a.venue)}</td>
       <td class="mono">${esc(a.year)}</td>
-      <td><span class="status-pill">${esc(a.status || 'Publicado')}</span></td>
+      <td><span class="status-pill ${statusClass(a.status)}">${esc(a.status || 'Publicado')}</span></td>
       <td>
         <div style="display:flex; gap:6px;">
           <button class="btn-sm btn-edit" onclick="editArticle(${i})">Editar</button>
